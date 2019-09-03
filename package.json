@@ -1,0 +1,26 @@
+{
+  "name": "project_name",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "Akib And Hridoy",
+  "contributors": [
+    "Akibur Rahman <adnanakib75@gmail.com>",
+    "Shahriar Hridoy <multi.hridoy@gmail.com>"
+  ],
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.19.2"
+  },
+  "dependencies": {
+    "dotenv": "^8.1.0",
+    "ejs": "^2.7.1",
+    "express": "^4.17.1",
+    "mongoose": "^5.6.11"
+  }
+}
