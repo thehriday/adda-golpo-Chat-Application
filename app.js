@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const expressLayouts = require('express-ejs-layouts');
+const session = require('express-session');
+const flash = require('connect-flash');
 require('dotenv').config();
 
 // import routes
@@ -13,6 +15,18 @@ app.set('view engine', 'ejs');
 // middleware
 app.use(expressLayouts);
 app.use(express.static('public'));
+
+// session config middleware
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true }
+  })
+);
+
+app.use(flash());
 
 // custom middleware
 app.use((req, res, next) => {
