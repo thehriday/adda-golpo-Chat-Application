@@ -12,6 +12,7 @@ app.set('view engine', 'ejs');
 
 // middleware
 app.use(expressLayouts);
+app.use(express.static('public'));
 
 // custom middleware
 app.use((req, res, next) => {
