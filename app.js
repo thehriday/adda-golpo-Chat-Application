@@ -4,6 +4,10 @@ const mongoose = require('mongoose');
 const app = express();
 require('dotenv').config();
 
+app.set('view engine', 'ejs');
+
+app.get('/', (req, res) => res.send(res.locals));
+
 mongoose
   .connect(
     `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@blog-site-lxobl.mongodb.net/project_name`,
