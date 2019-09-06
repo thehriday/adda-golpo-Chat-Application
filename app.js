@@ -4,6 +4,7 @@ const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session');
 const flash = require('connect-flash');
 require('dotenv').config();
+const fileUpload = require('express-fileupload');
 
 // import routes
 const authRoute = require('./routes/authRoute');
@@ -15,6 +16,13 @@ app.set('view engine', 'ejs');
 // middleware
 app.use(expressLayouts);
 app.use(express.static('public'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(
+  fileUpload({
+    useTempFiles: true
+  })
+);
 
 // session config middleware
 app.use(
