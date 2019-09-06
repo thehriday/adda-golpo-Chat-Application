@@ -8,8 +8,9 @@ exports.getSignup = (req, res) => {
 exports.postSignup = (req, res) => {
   const validationResult = signupValidation(req.body);
 
-  if (validationResult.errors.length > 0) {
-    req.flash.errors = validationResult.errors;
-    res.redirect('back');
-  }
+  // if (validationResult.errors.length > 0) {
+  //   req.flash.errors = validationResult.errors;
+  //   res.redirect('back');
+  // }
+  console.log(validationResult);
 };
