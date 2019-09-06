@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
 const { Schema } = mongoose;
 
@@ -20,13 +21,22 @@ const userSchema = new Schema({
     required: true
   },
   gender: {
-    type: String,
-    required: true
+    type: String
   },
   photoLink: {
     type: String,
     default: '/photos/avatar.png'
   }
 });
+
+const hashPassword = function(next) {
+  bcrypt.hash(this.password, 10, (err, hash) => {
+    if (err) return next(err);
+    this.password = hash;
+    next();
+  });
+};
+
+userSchema.pre('save', hashPassword);
 
 module.exports = mongoose.model('User', userSchema);

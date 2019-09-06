@@ -29,6 +29,7 @@
     "prettier": "^1.18.2"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "connect-flash": "^0.1.1",
     "dotenv": "^8.1.0",
     "ejs": "^2.7.1",
