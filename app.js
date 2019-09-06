@@ -14,6 +14,7 @@ app.set('view engine', 'ejs');
 
 // middleware
 app.use(expressLayouts);
+app.use(express.static('public'));
 
 // session config middleware
 app.use(
