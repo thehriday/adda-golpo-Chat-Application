@@ -29,6 +29,7 @@ const userSchema = new Schema({
   }
 });
 
+// hash password before save
 const hashPassword = function(next) {
   bcrypt.hash(this.password, 10, (err, hash) => {
     if (err) return next(err);
@@ -38,5 +39,17 @@ const hashPassword = function(next) {
 };
 
 userSchema.pre('save', hashPassword);
+
+// find email
+userSchema.statics.findEmail = async function(email) {
+  const user = await this.findOne({ email });
+  return user;
+};
+
+// find username
+userSchema.statics.findUsername = async function(username) {
+  const user = await this.findOne({ username });
+  return user;
+};
 
 module.exports = mongoose.model('User', userSchema);

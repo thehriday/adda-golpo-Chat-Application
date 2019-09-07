@@ -12,10 +12,25 @@ exports.postSignup = (req, res) => {
 
   if (validationResult.errors) {
     req.flash.errors = validationResult.errors;
-    res.redirect('back');
+    console.log(req.flash);
+    return res.redirect('back');
   }
   // console.log(validationResult);
   const { name, username, email, password } = validationResult;
+  const isEmailExists = User.findEmail(email);
+  const isUserNameExists = User.findUsername(username);
+
+  if (isEmailExists) {
+    req.flash('emailExists', 'Email is already taken.');
+    console.log(req.flash[0]);
+    return res.redirect('back');
+  }
+
+  if (isUserNameExists) {
+    req.flash('isUserNameExists', 'Username is already taken.');
+    console.log(req.flash[0]);
+    return res.redirect('back');
+  }
 
   const user = new User({
     name,
