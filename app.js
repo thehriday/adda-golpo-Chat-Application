@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session');
+const MongoDBStore = require('connect-mongodb-session')(session);
 const flash = require('connect-flash');
 require('dotenv').config();
 const fileUpload = require('express-fileupload');
@@ -24,13 +25,23 @@ app.use(
   })
 );
 
+const store = new MongoDBStore({
+  uri: `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@blog-site-lxobl.mongodb.net/project_name`,
+  collection: 'mySessions'
+});
+
+store.on('error', function(error) {
+  console.log(error);
+});
+
 // session config middleware
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true,
-    cookie: { secure: true }
+    saveUninitialized: false,
+    cookie: { maxAge: 1000 * 60 * 60 * 24 * 30 },
+    store
   })
 );
 
@@ -39,11 +50,23 @@ app.use(flash());
 // custom middleware
 app.use((req, res, next) => {
   res.locals.title = 'Project Name';
+  res.locals.errors = req.flash('errors');
   next();
 });
 
 // auth router
 app.use(authRoute);
+
+// error handling middleware
+app.use((err, req, res, next) => {
+  console.log(err);
+  res.send('<h1>Server Error.</h1>');
+});
+
+// 404 middleware
+app.use((req, res) => {
+  res.send('<h1>Page not found.</h1>');
+});
 
 // database connection
 mongoose

@@ -26,6 +26,10 @@ const userSchema = new Schema({
   photoLink: {
     type: String,
     default: '/photos/avatar.png'
+  },
+  emailValidationCode: {
+    type: String,
+    required: true
   }
 });
 
@@ -39,17 +43,5 @@ const hashPassword = function(next) {
 };
 
 userSchema.pre('save', hashPassword);
-
-// find email
-userSchema.statics.findEmail = async function(email) {
-  const user = await this.findOne({ email });
-  return user;
-};
-
-// find username
-userSchema.statics.findUsername = async function(username) {
-  const user = await this.findOne({ username });
-  return user;
-};
 
 module.exports = mongoose.model('User', userSchema);

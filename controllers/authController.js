@@ -1,48 +1,43 @@
+const { randomBytes } = require('crypto');
 const signupValidation = require('../util/validation/signupValidation');
 const User = require('../models/User');
 
 // signup get controller
 exports.getSignup = (req, res) => {
-  res.render('signup', { title: 'Please SignUp' });
+  res.render('signup', {
+    title: 'Please SignUp',
+    signup_success: req.flash('signup_success')[0]
+  });
 };
 
 // signup post controller
-exports.postSignup = (req, res) => {
-  const validationResult = signupValidation(req.body);
+exports.postSignup = async (req, res, next) => {
+  const validationResult = await signupValidation(req.body);
 
   if (validationResult.errors) {
-    req.flash.errors = validationResult.errors;
-    console.log(req.flash);
+    req.flash('errors', validationResult.errors);
     return res.redirect('back');
   }
-  // console.log(validationResult);
+
   const { name, username, email, password } = validationResult;
-  const isEmailExists = User.findEmail(email);
-  const isUserNameExists = User.findUsername(username);
-
-  if (isEmailExists) {
-    req.flash('emailExists', 'Email is already taken.');
-    console.log(req.flash[0]);
-    return res.redirect('back');
-  }
-
-  if (isUserNameExists) {
-    req.flash('isUserNameExists', 'Username is already taken.');
-    console.log(req.flash[0]);
-    return res.redirect('back');
-  }
 
   const user = new User({
     name,
     username,
     email,
-    password
+    password,
+    emailValidationCode: randomBytes(20).toString('hex')
   });
 
   user
     .save()
-    .then(userData => console.log(userData))
+    .then(userData => {
+      console.log(userData);
+
+      req.flash('signup_success', true);
+      res.redirect('back');
+    })
     .catch(err => {
-      console.log(err);
+      next(err);
     });
 };
