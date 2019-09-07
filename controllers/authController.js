@@ -3,7 +3,10 @@ const User = require('../models/User');
 
 // signup get controller
 exports.getSignup = (req, res) => {
-  res.render('signup', { title: 'Please SignUp' });
+  res.render('signup', {
+    title: 'Please SignUp',
+    signup_success: req.flash('signup_success')[0]
+  });
 };
 
 // signup post controller
@@ -11,10 +14,9 @@ exports.postSignup = (req, res) => {
   const validationResult = signupValidation(req.body);
 
   if (validationResult.errors) {
-    req.flash.errors = validationResult.errors;
-    res.redirect('back');
+    req.flash('errors', { errors: validationResult.errors });
+    return res.redirect('back');
   }
-  // console.log(validationResult);
   const { name, username, email, password } = validationResult;
 
   const user = new User({
@@ -26,7 +28,10 @@ exports.postSignup = (req, res) => {
 
   user
     .save()
-    .then(userData => console.log(userData))
+    .then(userData => {
+      req.flash('signup_success', true);
+      res.redirect('back');
+    })
     .catch(err => {
       console.log(err);
     });

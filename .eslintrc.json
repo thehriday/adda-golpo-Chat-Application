@@ -11,6 +11,7 @@
     "no-console": "off",
     "prettier/prettier": "error",
     "no-unused-vars": "warn",
-    "consistent-return": "off"
+    "consistent-return": "off",
+    "func-names": "off"
   }
 }

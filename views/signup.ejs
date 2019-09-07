@@ -1,3 +1,5 @@
+<% if(signup_success === undefined){ %>
+  
 <form action="/signup" method="POST" enctype="multipart/form-data">
   <div class="form-group">
     <label for="exampleInputEmail1">Name</label>
@@ -50,3 +52,7 @@
 
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+<% }else{ %>
+  <h1>Check Your Email</h1>
+
+<% }%>
