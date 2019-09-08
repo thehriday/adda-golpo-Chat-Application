@@ -21,4 +21,10 @@ router.post('/login', postLogin);
 
 // activation account route
 router.get('/activation/:code', getActivationAccount);
+
+// show signup success
+router.get('/signup_success', (req, res) => {
+  res.render('auth/signupSuccess');
+});
+
 module.exports = router;
