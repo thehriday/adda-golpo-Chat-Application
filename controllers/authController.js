@@ -33,7 +33,6 @@ exports.postSignup = async (req, res, next) => {
     .save()
     .then(userData => {
       console.log(userData);
-
       req.flash('signup_success', true);
       res.redirect('back');
     })

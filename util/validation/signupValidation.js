@@ -32,7 +32,7 @@ const signupValidation = async data => {
   } else {
     const isUserNameExists = await User.findOne({ username });
     if (isUserNameExists) {
-      validationError.push('User is already taken.');
+      validationError.push('Username is already taken.');
     }
   }
 
