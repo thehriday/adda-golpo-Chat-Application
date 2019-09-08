@@ -11,9 +11,9 @@ const signupValidation = async data => {
 
   // trim all input
   name = name.trim();
-  username = username.trim();
+  username = username.trim().toLowerCase();
   password = password.trim();
-  email = email.trim();
+  email = email.trim().toLowerCase();
 
   const validationError = [];
 

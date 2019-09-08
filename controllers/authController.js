@@ -1,6 +1,9 @@
 const { randomBytes } = require('crypto');
+const passport = require('passport');
+
 const signupValidation = require('../util/validation/signupValidation');
 const User = require('../models/User');
+const signupMail = require('../util/sendmail/signupMail');
 
 // signup get controller
 exports.getSignup = (req, res) => {
@@ -32,8 +35,15 @@ exports.postSignup = async (req, res, next) => {
   user
     .save()
     .then(userData => {
-      console.log(userData);
-
+      signupMail({
+        name: userData.name,
+        to: userData.email,
+        link: `${process.env.SITE_URL}/validation/${userData.emailValidationCode}`
+      })
+        .then(() => console.log('SENT'))
+        .catch(err => {
+          console.log(err);
+        });
       req.flash('signup_success', true);
       res.redirect('back');
     })
@@ -41,3 +51,15 @@ exports.postSignup = async (req, res, next) => {
       next(err);
     });
 };
+
+// login get controller
+exports.getLogin = (req, res) => {
+  res.render('login', { title: 'Login' });
+};
+
+// login post controller
+exports.postLogin = passport.authenticate('local', {
+  successRedirect: '/',
+  failureRedirect: '/login',
+  failureFlash: true
+});
