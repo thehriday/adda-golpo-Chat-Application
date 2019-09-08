@@ -7,9 +7,8 @@ const signupMail = require('../util/sendmail/signupMail');
 
 // signup get controller
 exports.getSignup = (req, res) => {
-  res.render('signup', {
-    title: 'Please SignUp',
-    signup_success: req.flash('signup_success')[0]
+  res.render('auth/signup', {
+    title: 'Please SignUp'
   });
 };
 
@@ -38,14 +37,11 @@ exports.postSignup = async (req, res, next) => {
       signupMail({
         name: userData.name,
         to: userData.email,
-        link: `${process.env.SITE_URL}/validation/${userData.emailValidationCode}`
+        link: `${process.env.SITE_URL}/activation/${userData.emailValidationCode}`
       })
         .then(() => console.log('SENT'))
-        .catch(err => {
-          console.log(err);
-        });
-      req.flash('signup_success', true);
-      res.redirect('back');
+        .catch(err => next(err));
+      res.redirect('/signup_success');
     })
     .catch(err => {
       next(err);
@@ -54,7 +50,7 @@ exports.postSignup = async (req, res, next) => {
 
 // login get controller
 exports.getLogin = (req, res) => {
-  res.render('login', { title: 'Login' });
+  res.render('auth/login', { title: 'Login' });
 };
 
 // login post controller

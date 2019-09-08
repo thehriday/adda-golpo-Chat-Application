@@ -65,12 +65,12 @@ app.use(authRoute);
 // error handling middleware
 app.use((err, req, res, next) => {
   console.log(err);
-  res.send('<h1>Server Error.</h1>');
+  res.render('error/500');
 });
 
 // 404 middleware
 app.use((req, res) => {
-  res.send('<h1>Page not found.</h1>');
+  res.render('error/404');
 });
 
 // database connection

@@ -11,4 +11,9 @@ router.post('/signup', authController.postSignup);
 router.get('/login', authController.getLogin);
 router.post('/login', authController.postLogin);
 
+// show signup success
+router.get('/signup_success', (req, res) => {
+  res.render('auth/signupSuccess');
+});
+
 module.exports = router;
