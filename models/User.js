@@ -28,8 +28,7 @@ const userSchema = new Schema({
     default: '/photos/avatar.png'
   },
   emailValidationCode: {
-    type: String,
-    required: true
+    type: String
   }
 });
 

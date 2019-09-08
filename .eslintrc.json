@@ -12,6 +12,7 @@
     "prettier/prettier": "error",
     "no-unused-vars": "warn",
     "consistent-return": "off",
-    "func-names": "off"
+    "func-names": "off",
+    "no-param-reassign": "off"
   }
 }

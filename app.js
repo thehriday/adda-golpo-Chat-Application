@@ -4,8 +4,11 @@ const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const flash = require('connect-flash');
-require('dotenv').config();
 const fileUpload = require('express-fileupload');
+const passport = require('passport');
+// only require part
+require('dotenv').config();
+require('./passport/passport');
 
 // import routes
 const authRoute = require('./routes/authRoute');
@@ -46,9 +49,12 @@ app.use(
 );
 
 app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 
 // custom middleware
 app.use((req, res, next) => {
+  console.log(req.user);
   res.locals.title = 'Project Name';
   res.locals.errors = req.flash('errors');
   next();
