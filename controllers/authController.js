@@ -63,7 +63,6 @@ exports.postLogin = passport.authenticate('local', {
 // activation account controller
 exports.getActivationAccount = (req, res, next) => {
   const { code } = req.params;
-  console.log(code);
   User.findOne({ emailValidationCode: code })
     .then(user => {
       if (!user) {
@@ -74,8 +73,14 @@ exports.getActivationAccount = (req, res, next) => {
       return user.save();
     })
     .then(user => {
-      req.session.passport = { user: user.id };
-      res.redirect('/');
+      if (user) {
+        req.session.passport = { user: user.id };
+        res.redirect('/');
+      }
     })
     .catch(err => next(err));
 };
+
+function show() {
+  return 'HII';
+}
