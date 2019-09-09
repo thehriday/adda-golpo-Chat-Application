@@ -27,4 +27,10 @@ router.get('/signup_success', (req, res) => {
   res.render('auth/signupSuccess');
 });
 
+// logout route
+router.post('/logout', (req, res) => {
+  req.logOut();
+  res.redirect('/');
+});
+
 module.exports = router;
