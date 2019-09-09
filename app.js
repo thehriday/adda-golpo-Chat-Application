@@ -54,6 +54,8 @@ app.use(passport.session());
 
 // custom middleware
 app.use((req, res, next) => {
+  console.log(req.flash('error'));
+  console.log(req.user);
   res.locals.title = 'Project Name';
   res.locals.errors = req.flash('errors');
   next();
