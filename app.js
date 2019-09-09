@@ -64,7 +64,6 @@ app.use(authRoute);
 
 // error handling middleware
 app.use((err, req, res, next) => {
-  console.log(err);
   res.render('error/500');
 });
 
