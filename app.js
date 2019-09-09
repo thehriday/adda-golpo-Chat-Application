@@ -12,6 +12,7 @@ require('./passport/passport');
 
 // import routes
 const authRoute = require('./routes/authRoute');
+const successMsgRoute = require('./routes/successMsgRoute');
 
 // app
 const app = express();
@@ -64,8 +65,12 @@ app.use((req, res, next) => {
 // auth router
 app.use(authRoute);
 
+// success message router
+app.use(successMsgRoute);
+
 // error handling middleware
 app.use((err, req, res, next) => {
+  console.log(err);
   res.render('error/500');
 });
 

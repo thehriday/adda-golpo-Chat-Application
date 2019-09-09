@@ -29,6 +29,9 @@ const userSchema = new Schema({
   },
   emailValidationCode: {
     type: String
+  },
+  passwordResetToken: {
+    type: String
   }
 });
 

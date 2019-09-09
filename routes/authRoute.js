@@ -6,7 +6,9 @@ const {
   postSignup,
   getLogin,
   postLogin,
-  getActivationAccount
+  getActivationAccount,
+  getResetPassword,
+  postResetPassword
 } = authController;
 
 const router = express.Router();
@@ -22,9 +24,10 @@ router.post('/login', postLogin);
 // activation account route
 router.get('/activation/:code', getActivationAccount);
 
-// show signup success
-router.get('/signup_success', (req, res) => {
-  res.render('auth/signupSuccess');
-});
+// password reset route
+router
+  .route('/reset_password')
+  .get(getResetPassword)
+  .post(postResetPassword);
 
 module.exports = router;

@@ -1,5 +1,6 @@
 const { randomBytes } = require('crypto');
 const passport = require('passport');
+const validator = require('validator');
 
 const signupValidation = require('../util/validation/signupValidation');
 const User = require('../models/User');
@@ -40,7 +41,7 @@ exports.postSignup = async (req, res, next) => {
         link: `${process.env.SITE_URL}/activation/${userData.emailValidationCode}`
       });
     })
-    .then(() => res.redirect('/signup_success'))
+    .then(() => res.redirect('/success_message?name=signup'))
     .catch(err => next(err));
 };
 
@@ -74,5 +75,39 @@ exports.getActivationAccount = (req, res, next) => {
         res.redirect('/');
       }
     })
+    .catch(err => next(err));
+};
+
+exports.getResetPassword = (req, res) => {
+  res.render('auth/reset-password');
+};
+
+exports.postResetPassword = (req, res, next) => {
+  const { usernameOrEmail } = req.body;
+  const isEmpty = validator.isEmpty(usernameOrEmail);
+
+  if (isEmpty) {
+    req.flash('errors', ['Username or Email is required.']);
+    return res.redirect('back');
+  }
+
+  const isEmail = validator.isEmail(usernameOrEmail);
+
+  if (isEmail) {
+    return User.findOne({ email: usernameOrEmail })
+      .then(user => {
+        user.passwordResetToken = randomBytes(20).toString('hex');
+        return user.save();
+      })
+      .then(() => res.redirect('/success_message?name=reset_password'))
+      .catch(err => next(err));
+  }
+
+  User.findOne({ username: usernameOrEmail })
+    .then(user => {
+      user.passwordResetToken = randomBytes(20).toString('hex');
+      return user.save();
+    })
+    .then(() => res.redirect('/success_message?name=reset_password'))
     .catch(err => next(err));
 };
