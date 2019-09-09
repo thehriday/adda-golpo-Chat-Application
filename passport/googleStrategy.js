@@ -1,6 +1,5 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const bcrypt = require('bcryptjs');
 
 const User = require('../models/User');
 
@@ -9,7 +8,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: process.env.GOOGLE_CALLBCK,
+      callbackURL: process.env.GOOGLE_CALLBACK,
       profileFields: ['id', 'displayName', 'photos', 'email']
     },
     (accessToken, refreshToken, profile, done) => {
