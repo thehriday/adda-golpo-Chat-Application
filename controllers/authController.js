@@ -34,18 +34,14 @@ exports.postSignup = async (req, res, next) => {
   user
     .save()
     .then(userData => {
-      signupMail({
+      return signupMail({
         name: userData.name,
         to: userData.email,
         link: `${process.env.SITE_URL}/activation/${userData.emailValidationCode}`
-      })
-        .then(() => console.log('SENT'))
-        .catch(err => next(err));
-      res.redirect('/signup_success');
+      });
     })
-    .catch(err => {
-      next(err);
-    });
+    .then(() => res.redirect('/signup_success'))
+    .catch(err => next(err));
 };
 
 // login get controller
@@ -63,7 +59,6 @@ exports.postLogin = passport.authenticate('local', {
 // activation account controller
 exports.getActivationAccount = (req, res, next) => {
   const { code } = req.params;
-  console.log(code);
   User.findOne({ emailValidationCode: code })
     .then(user => {
       if (!user) {
@@ -74,8 +69,10 @@ exports.getActivationAccount = (req, res, next) => {
       return user.save();
     })
     .then(user => {
-      req.session.passport = { user: user.id };
-      res.redirect('/');
+      if (user) {
+        req.session.passport = { user: user.id };
+        res.redirect('/');
+      }
     })
     .catch(err => next(err));
 };
