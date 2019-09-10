@@ -4,6 +4,7 @@ const User = require('../models/User');
 // strategy
 require('./localStrategy');
 require('./googleStrategy');
+require('./facebookStrategy');
 
 passport.serializeUser((user, done) => {
   done(null, user.id);

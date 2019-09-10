@@ -31,6 +31,8 @@ const signupValidation = async data => {
     validationError.push('Username is required.');
   } else if (!validator.isLength(username, { min: 3, max: 10 })) {
     validationError.push('Username should be between 3 to 10 characters.');
+  } else if (validator.isNumeric(username)) {
+    validationError.push('Username should be contain at least one character.');
   } else {
     const isUserNameExists = await User.findOne({ username });
     if (isUserNameExists) {

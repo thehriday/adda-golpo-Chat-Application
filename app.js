@@ -6,6 +6,14 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 const flash = require('connect-flash');
 const fileUpload = require('express-fileupload');
 const passport = require('passport');
+const cloudinary = require('cloudinary').v2;
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
 // only require part
 require('dotenv').config();
 require('./passport/passport');
