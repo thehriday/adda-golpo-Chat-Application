@@ -14,21 +14,28 @@ passport.use(
     (accessToken, refreshToken, profile, done) => {
       const { name, email, picture } = profile._json;
       User.findOne({ email })
-        .then(user => {
+        .then(async user => {
           if (user) {
-            done(null, user);
-          } else {
-            const newUser = new User({
-              name,
-              email,
-              photoLink: picture,
-              username: Date.now()
-            });
-            return newUser.save();
+            return user;
           }
+          const username = name.replace(/ /g, '').toLowerCase();
+          const userExists = await User.findOne({ username });
+          const newUser = new User({
+            name,
+            email,
+            photoLink: picture
+          });
+          if (userExists) {
+            newUser.username = Date.now();
+          } else {
+            newUser.username = username;
+          }
+          return newUser.save();
         })
-        .then(userData => done(userData))
-        .catch(err => console.log(err));
+        .then(userData => {
+          done(null, userData);
+        })
+        .catch(err => done(err));
     }
   )
 );

@@ -13,10 +13,11 @@ passport.deserializeUser((id, done) => {
   User.findById(id)
     .then(user => {
       if (user) {
-        done(null, user);
+        return done(null, user);
       }
+      done(null, false);
     })
     .catch(err => {
-      console.log(err);
+      done(err);
     });
 });

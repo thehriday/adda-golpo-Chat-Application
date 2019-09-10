@@ -72,7 +72,7 @@ app.use(successMsgRoute);
 
 // error handling middleware
 app.use((err, req, res, next) => {
-  console.log(err);
+  console.log('server error', err);
   res.render('error/500');
 });
 
