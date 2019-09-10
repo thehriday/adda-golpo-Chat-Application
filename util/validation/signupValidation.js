@@ -1,4 +1,6 @@
 const validator = require('validator');
+const bcrypt = require('bcryptjs');
+
 const User = require('../../models/User');
 
 /**
@@ -55,6 +57,8 @@ const signupValidation = async data => {
     validationError.push('Password is required.');
   } else if (!validator.isLength(password, { min: 6 })) {
     validationError.push('Password should be at least 6 characters.');
+  } else {
+    password = bcrypt.hashSync(password, 10);
   }
 
   return validationError.length > 0

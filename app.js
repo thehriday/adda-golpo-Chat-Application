@@ -13,6 +13,7 @@ require('./passport/passport');
 // import routes
 const authRoute = require('./routes/authRoute');
 const successMsgRoute = require('./routes/successMsgRoute');
+const oAuthRouter = require('./routes/oAuthRouter');
 
 // app
 const app = express();
@@ -64,6 +65,8 @@ app.use((req, res, next) => {
 
 // auth router
 app.use(authRoute);
+// oAuth router
+app.use('/oauth', oAuthRouter);
 
 // success message router
 app.use(successMsgRoute);

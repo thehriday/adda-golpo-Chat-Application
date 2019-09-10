@@ -13,6 +13,7 @@
     "no-unused-vars": "warn",
     "consistent-return": "off",
     "func-names": "off",
-    "no-param-reassign": "off"
+    "no-param-reassign": "off",
+    "no-underscore-dangle": "off"
   }
 }

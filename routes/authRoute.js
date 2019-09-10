@@ -30,4 +30,10 @@ router
   .get(getResetPassword)
   .post(postResetPassword);
 
+// logout route
+router.post('/logout', (req, res) => {
+  req.logOut();
+  res.redirect('/');
+});
+
 module.exports = router;
