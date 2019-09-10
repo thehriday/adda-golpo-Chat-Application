@@ -1,9 +1,12 @@
 const { randomBytes } = require('crypto');
 const passport = require('passport');
+const validator = require('validator');
+const bcrypt = require('bcryptjs');
 
 const signupValidation = require('../util/validation/signupValidation');
 const User = require('../models/User');
 const signupMail = require('../util/sendmail/signupMail');
+const resetPasswordMail = require('../util/sendmail/resetPasswordMail');
 
 // signup get controller
 exports.getSignup = (req, res) => {
@@ -17,7 +20,7 @@ exports.postSignup = async (req, res, next) => {
   const validationResult = await signupValidation(req.body);
 
   if (validationResult.errors) {
-    req.flash('errors', validationResult.errors);
+    req.flash('error', validationResult.errors);
     return res.redirect('back');
   }
 
@@ -40,7 +43,7 @@ exports.postSignup = async (req, res, next) => {
         link: `${process.env.SITE_URL}/activation/${userData.emailValidationCode}`
       });
     })
-    .then(() => res.redirect('/signup_success'))
+    .then(() => res.redirect('/success_message?name=signup'))
     .catch(err => next(err));
 };
 
@@ -73,6 +76,97 @@ exports.getActivationAccount = (req, res, next) => {
         req.session.passport = { user: user.id };
         res.redirect('/');
       }
+    })
+    .catch(err => next(err));
+};
+
+exports.getResetPassword = (req, res) => {
+  res.render('auth/reset-password', { title: 'Rest Your Password' });
+};
+
+exports.postResetPassword = async (req, res, next) => {
+  const { usernameOrEmail } = req.body;
+  const isEmpty = validator.isEmpty(usernameOrEmail);
+
+  if (isEmpty) {
+    req.flash('error', ['Username or Email is required.']);
+    return res.redirect('back');
+  }
+
+  const isEmail = validator.isEmail(usernameOrEmail);
+  let user;
+  if (isEmail) {
+    user = await User.findOne({ email: usernameOrEmail });
+  } else {
+    user = await User.findOne({ username: usernameOrEmail });
+  }
+  // check user exist or not
+  if (user) {
+    user.passwordResetToken = randomBytes(25).toString('hex');
+    user.passwordResetTime = Date.now() + 1000 * 60 * 60 * 24;
+    user
+      .save()
+      .then(() => {
+        return resetPasswordMail({
+          name: user.name,
+          to: user.email,
+          link: `${process.env.SITE_URL}/reset_password/token/${user.passwordResetToken}`
+        });
+      })
+      .then(() => {
+        res.redirect('/success_message?name=reset_password');
+      })
+      .catch(err => next(err));
+  } else {
+    req.flash('error', ['No user found with this username or Email']);
+    res.redirect('back');
+  }
+};
+
+// reset password with code callback
+
+exports.getResetPasswordToken = (req, res, next) => {
+  const { passwordResetToken } = req.params;
+  User.findOne({
+    passwordResetToken,
+    passwordResetTime: { $gt: Date.now() }
+  })
+    .then(user => {
+      if (user) {
+        res.render('auth/changeForgetPassword', { passwordResetToken });
+      } else {
+        req.flash('error', [
+          'Your Token is Invalid or Token has been Expired. Try Again'
+        ]);
+        res.redirect('/reset_password');
+      }
+    })
+    .catch(err => {
+      next(err);
+    });
+};
+
+exports.postChangeRestPassword = (req, res, next) => {
+  const { password, passwordResetToken } = req.body;
+  if (password.length < 6) {
+    req.flash('error', ['Password should be at least 6 characters.']);
+    return res.redirect('back');
+  }
+  User.findOne({ passwordResetToken })
+    .then(user => {
+      if (user) {
+        bcrypt.hash(password, 10, (err, hasPassword) => {
+          if (err) throw err;
+          user.password = hasPassword;
+          user.passwordResetToken = null;
+          return user.save();
+        });
+        req.redirect('/login');
+      }
+    })
+    .then(user => {
+      req.flash('success', ['Your password has successfully changed']);
+      res.redirect('/login');
     })
     .catch(err => next(err));
 };

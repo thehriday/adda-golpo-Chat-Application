@@ -13,7 +13,11 @@
     <title><%= title %></title>
   </head>
   <body>
-    <%- body %>
+    <% error.forEach(err => { %>
+    <h5><%= err %></h5>
+    <% }) %> <% success.forEach(singleSuccess => { %>
+    <h5><%= singleSuccess %></h5>
+    <% }) %> <%- body %>
 
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

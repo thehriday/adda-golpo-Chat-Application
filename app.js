@@ -13,6 +13,7 @@ require('./passport/passport');
 // import routes
 const authRoute = require('./routes/authRoute');
 const oAuthRouter = require('./routes/oAuthRouter');
+const successMsgRoute = require('./routes/successMsgRoute');
 
 // app
 const app = express();
@@ -55,10 +56,9 @@ app.use(passport.session());
 
 // custom middleware
 app.use((req, res, next) => {
-  console.log(req.flash('error'));
-  console.log(req.user);
   res.locals.title = 'Project Name';
-  res.locals.errors = req.flash('errors');
+  res.locals.error = req.flash('error');
+  res.locals.success = req.flash('success');
   next();
 });
 
@@ -66,6 +66,9 @@ app.use((req, res, next) => {
 app.use(authRoute);
 // oAuth router
 app.use('/oauth', oAuthRouter);
+
+// success message router
+app.use(successMsgRoute);
 
 // error handling middleware
 app.use((err, req, res, next) => {
