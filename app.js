@@ -6,13 +6,6 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 const flash = require('connect-flash');
 const fileUpload = require('express-fileupload');
 const passport = require('passport');
-const cloudinary = require('cloudinary').v2;
-
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET
-});
 
 // only require part
 require('dotenv').config();
@@ -65,6 +58,8 @@ app.use(passport.session());
 // custom middleware
 app.use((req, res, next) => {
   res.locals.title = 'Project Name';
+  res.locals.isAuth = req.isAuthenticated();
+  res.locals.user = req.user;
   res.locals.error = req.flash('error');
   res.locals.success = req.flash('success');
   next();
@@ -97,7 +92,10 @@ mongoose
   )
   .then(() => {
     app.listen(process.env.PORT, () => {
-      console.log(`App is running on port ${process.env.PORT}`);
+      console.log(
+        '\x1b[33m%s\x1b[0m',
+        `App is running on port ${process.env.PORT}`
+      );
     });
   })
   .catch(err => {

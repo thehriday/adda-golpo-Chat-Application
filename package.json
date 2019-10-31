@@ -1,20 +1,33 @@
 {
-  "name": "project_name",
+  "name": "adda-golpo",
   "version": "1.0.0",
-  "description": "",
+  "description": "Message sharing app",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "wabpack": "webpack --watch",
+    "appDev": "nodemon app",
+    "dev": "concurrently \"nodemon app\" \" webpack --watch\" "
   },
-  "keywords": [],
-  "author": "Akib And Hridoy",
+  "keywords": [
+    "add-golpo",
+    "chat app with nodejs",
+    "messagge sharing app with expressjs"
+  ],
+  "author": "Shahriar Hridoy",
   "contributors": [
-    "Akibur Rahman <adnanakib75@gmail.com>",
     "Shahriar Hridoy <multi.hridoy@gmail.com>"
   ],
+  "nodemonConfig": {
+    "ignore": [
+      "public/*"
+    ]
+  },
   "license": "ISC",
   "devDependencies": {
+    "autoprefixer": "^9.7.0",
+    "concurrently": "^5.0.0",
+    "css-loader": "^3.2.0",
     "eslint": "^6.3.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-node": "^4.0.0",
@@ -25,8 +38,16 @@
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^2.0.1",
+    "mini-css-extract-plugin": "^0.8.0",
+    "node-sass": "^4.13.0",
     "nodemon": "^1.19.2",
-    "prettier": "^1.18.2"
+    "postcss-loader": "^3.0.0",
+    "prettier": "^1.18.2",
+    "sass-loader": "^8.0.0",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.6.4",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.9"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

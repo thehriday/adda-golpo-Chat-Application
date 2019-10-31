@@ -10,9 +10,18 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
-    <title><%= title %></title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+    <title><%-title %></title>
   </head>
   <body>
+    <!-- nav bar -->
+    <%-include('./navbar/navbar') %>
+
+    <!-- show error -->
     <% error.forEach(err => { %>
     <h5><%= err %></h5>
     <% }) %> <% success.forEach(singleSuccess => { %>
@@ -34,5 +43,6 @@
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"
     ></script>
+    <script src="/js/script.js"></script>
   </body>
 </html>

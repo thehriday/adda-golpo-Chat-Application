@@ -1,0 +1,53 @@
+<div class="ml-auto authNavbar">
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <a class="nav-link" href="/">
+        <i class="fa fa-home" aria-hidden="true"></i>
+        <br />
+        <span class="p-0 m-0">Home</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/messages">
+        <i class="fa fa-comments" aria-hidden="true"></i>
+        <br />
+        <span class="p-0 m-0">Messaging</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/notifications"
+        ><i class="fa fa-bell" aria-hidden="true"></i>
+        <br />
+        <span class="p-0 m-0">Notifications</span>
+      </a>
+    </li>
+
+    <li class="nav-item  dropdown">
+      <a
+        class="nav-link dropdown-toggle"
+        href="/<%= user.username %>"
+        id="navbarDropdown"
+        role="button"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <img
+          class="navbarPhoto"
+          src="<%= user.photoLink %>"
+          alt="<%=user.name%>"
+        />
+        <br />
+        <span class="p-0 m-0"><%= user.name %></span>
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="#">Action</a>
+        <a class="dropdown-item" href="#">Another action</a>
+        <div class="dropdown-divider"></div>
+        <form action="/logout" method="post">
+          <input type="submit" class="dropdown-item" value="Log Out" />
+        </form>
+      </div>
+    </li>
+  </ul>
+</div>

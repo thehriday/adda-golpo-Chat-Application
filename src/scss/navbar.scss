@@ -1,0 +1,23 @@
+nav {
+    .navbarPhoto {
+        width        : 30px;
+        height       : 30px;
+        border-radius: 50%;
+    }
+
+    .authNavbar {
+        li.nav-item {
+            min-width: 105px;
+        }
+
+        li>a {
+            padding   : 0;
+            text-align: center;
+
+            i {
+                font-size: 25px !important;
+            }
+        }
+    }
+
+}

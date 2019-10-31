@@ -20,13 +20,11 @@ passport.use(
           }
           const username = name.replace(/ /g, '').toLowerCase();
           const userExists = await User.findOne({ username });
-          const photo = await cloudinary.uploader.upload(
-            `http://graph.facebook.com/${profile._json.id}/picture?type=large`
-          );
+
           const newUser = new User({
             name,
             email,
-            photoLink: photo.secure_url
+            photoLink: picture
           });
           if (userExists) {
             newUser.username = Date.now();
