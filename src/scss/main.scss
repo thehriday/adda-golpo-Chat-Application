@@ -1,0 +1,21 @@
+body {
+    min-width : 100vh;
+    background: linear-gradient(90deg, #d3fff1, #efc7ff);
+}
+
+.authForm {
+    display        : flex;
+    justify-content: center;
+    align-items    : center;
+
+    .formContainer {
+        // min-width : 450px;
+        min-width    : 550px;
+        min-height   : 368px;
+        background   : white;
+        padding      : 60px 70px;
+        border-radius: 15px;
+        box-shadow   : 1px 4px 10px 0px #9e9a9adb;
+
+    }
+}

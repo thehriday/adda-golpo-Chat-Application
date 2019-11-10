@@ -1,0 +1,52 @@
+.horizontalLine {
+    position: relative;
+
+    p {
+        position  : absolute;
+        top       : -10px;
+        background: white;
+        width     : 60px;
+        left      : 50%;
+        transform : translate(-50%, 0px);
+        text-align: center;
+    }
+}
+
+.oAuth {
+    text-align     : center;
+    border-radius  : 5px;
+    display        : flex;
+    justify-content: center;
+    align-items    : center;
+
+    a {
+        color          : white;
+        padding        : 7px;
+        text-decoration: none;
+        flex           : 1;
+    }
+
+    i {
+        color    : white;
+        font-size: 25px;
+
+    }
+
+}
+
+.facebookOAuth {
+    background: #3b5998;
+
+    &:hover {
+        background: #435988;
+    }
+
+}
+
+.googleOAuth {
+    background: #df4a32;
+
+    &:hover {
+        background: #b54533;
+    }
+}

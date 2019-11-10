@@ -161,7 +161,7 @@ exports.postChangeRestPassword = (req, res, next) => {
           user.passwordResetToken = null;
           return user.save();
         });
-        req.redirect('/login');
+        res.redirect('/login');
       }
     })
     .then(user => {

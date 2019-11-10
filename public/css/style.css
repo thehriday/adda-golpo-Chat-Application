@@ -1,2 +1,9 @@
+body{min-width:100vh;background:-webkit-gradient(linear, left top, right top, from(#d3fff1), to(#efc7ff));background:linear-gradient(90deg, #d3fff1, #efc7ff)}.authForm{display:-webkit-box;display:flex;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center}.authForm .formContainer{min-width:550px;min-height:368px;background:white;padding:60px 70px;border-radius:15px;box-shadow:1px 4px 10px 0px #9e9a9adb}
+
 nav .navbarPhoto{width:30px;height:30px;border-radius:50%}nav .authNavbar li.nav-item{min-width:105px}nav .authNavbar li>a{padding:0;text-align:center}nav .authNavbar li>a i{font-size:25px !important}
+
+
+.signupPage{padding-bottom:20px}
+
+.horizontalLine{position:relative}.horizontalLine p{position:absolute;top:-10px;background:white;width:60px;left:50%;-webkit-transform:translate(-50%, 0px);transform:translate(-50%, 0px);text-align:center}.oAuth{text-align:center;border-radius:5px;display:-webkit-box;display:flex;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center}.oAuth a{color:white;padding:7px;text-decoration:none;-webkit-box-flex:1;flex:1}.oAuth i{color:white;font-size:25px}.facebookOAuth{background:#3b5998}.facebookOAuth:hover{background:#435988}.googleOAuth{background:#df4a32}.googleOAuth:hover{background:#b54533}
 

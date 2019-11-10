@@ -1,1 +1,3 @@
-import '../scss/navbar.scss';
+import './scssImport';
+
+import './signupValidation';

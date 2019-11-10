@@ -1,29 +1,95 @@
-<form action="/signup" method="POST" enctype="multipart/form-data">
-  <div class="form-group">
-    <label for="exampleInputEmail1">Name</label>
-    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name"
-      name="name" />
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">username</label>
-    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Username" name="username" />
-  </div>
+<div class="signupPage">
+  <div class="container mt-4">
+    <div class="authForm">
+      <div class="formContainer">
+        <form action="/signup" method="POST" enctype="multipart/form-data">
+          <h4>Create an account</h4>
+          <br />
+          <div class="form-group input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"
+                ><i class="fa fa-address-card-o" aria-hidden="true"></i
+              ></span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              placeholder="Name"
+              name="name"
+              required
+            />
+          </div>
+          <div class="form-group input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"
+                ><i class="fa fa-user-o" aria-hidden="true"></i
+              ></span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              id="username"
+              placeholder="Username"
+              name="username"
+              required
+            />
+          </div>
 
-  <div class="form-group">
-    <label for="exampleInputPassword1">email</label>
-    <input type="email" class="form-control" id="exampleInputPassword1" placeholder="Email" name="email" />
+          <div class="form-group input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"
+                ><i class="fa fa-envelope-o" aria-hidden="true"></i
+              ></span>
+            </div>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              placeholder="Email"
+              name="email"
+              required
+            />
+          </div>
+          <div class="form-group input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"
+                ><i class="fa fa-key" aria-hidden="true"></i
+              ></span>
+            </div>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              placeholder="Password"
+              name="password"
+              required
+            />
+          </div>
+          <div class="form-group input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"
+                ><i class="fa fa-key" aria-hidden="true"></i
+              ></span>
+            </div>
+            <input
+              type="password"
+              class="form-control"
+              id="confirm-password"
+              placeholder="Confirm Password"
+              required
+            />
+          </div>
+
+          <button type="submit" class="btn btn-success btn-block">
+            Registration
+          </button>
+        </form>
+        
+        <%- include('oauth',{method:"Sign up"})%>
+
+        </div>
+      </div>
+    </div>
   </div>
-
-  <label for="exampleInputPassword1">password</label>
-  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="password" name="password" />
-  </div>
-
-  <div class="form-group">
-    <label for="exampleFormControlFile1">Example file input</label>
-    <input type="file" class="form-control-file" id="exampleFormControlFile1" />
-  </div>
-
-  <button type="submit" class="btn btn-primary">Submit</button>
-
-  <a href="/oauth/facebook/" class="link">Continue with facebook</a>
-</form>
+</div>

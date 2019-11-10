@@ -22,11 +22,28 @@
     <%-include('./navbar/navbar') %>
 
     <!-- show error -->
-    <% error.forEach(err => { %>
-    <h5><%= err %></h5>
-    <% }) %> <% success.forEach(singleSuccess => { %>
-    <h5><%= singleSuccess %></h5>
-    <% }) %> <%- body %>
+    <div class="container mt-4">
+      <div class="row" style="justify-content: center;">
+        <div class="col-lg-6">
+          <% error.forEach(err => { %> <%-
+          include('./error/validationErrors',{error:err})%> <% }) %>
+        </div>
+      </div>
+    </div>
+
+    <!-- success message -->
+    <div class="container mt-4">
+      <div class="row" style="justify-content: center;">
+        <div class="col-lg-6">
+          <% success.forEach(singleSuccess => { %> <%-
+          include('./success_msg/successMessage',{success:singleSuccess})%> <%
+          }) %>
+        </div>
+      </div>
+    </div>
+
+    <!-- body part -->
+    <%- body %>
 
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

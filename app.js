@@ -57,7 +57,7 @@ app.use(passport.session());
 
 // custom middleware
 app.use((req, res, next) => {
-  res.locals.title = 'Project Name';
+  res.locals.title = 'Welcome to Adda Golpo';
   res.locals.isAuth = req.isAuthenticated();
   res.locals.user = req.user;
   res.locals.error = req.flash('error');
