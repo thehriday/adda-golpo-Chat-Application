@@ -1,4 +1,7 @@
-if (location.pathname.replace(/\//g, '') === 'signup') {
+if (
+  location.pathname.replace(/\//g, '') === 'signup' ||
+  location.pathname.indexOf('reset_password/token') !== -1
+) {
   const password = document.querySelector('#password') as HTMLInputElement;
   const confirmPassword = document.querySelector(
     '#confirm-password'

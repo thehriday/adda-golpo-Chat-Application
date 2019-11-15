@@ -1,3 +1,3 @@
 import './scssImport';
 
-import './signupValidation';
+import './passwordValidation';

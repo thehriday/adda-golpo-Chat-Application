@@ -65,6 +65,11 @@ app.use((req, res, next) => {
   next();
 });
 
+// routes
+
+// home page
+app.get('/', (req, res) => res.render('homePage'));
+
 // auth router
 app.use(authRoute);
 // oAuth router

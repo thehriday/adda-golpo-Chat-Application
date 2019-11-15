@@ -1,0 +1,24 @@
+<!-- show error -->
+<% if(error.length){ %>
+<div class="container mt-4">
+  <div class="row" style="justify-content: center;">
+    <div class="col-lg-6">
+      <% error.forEach(err => { %> <%- include('validationErrors',{error:err})%>
+      <% }) %>
+    </div>
+  </div>
+</div>
+<% } %>
+
+<!-- success message -->
+<% if (success.length){ %>
+<div class="container mt-4">
+  <div class="row" style="justify-content: center;">
+    <div class="col-lg-6">
+      <% success.forEach(singleSuccess => { %> <%-
+      include('../success_msg/successMessage',{success:singleSuccess})%> <% })
+      %>
+    </div>
+  </div>
+</div>
+<% } %>

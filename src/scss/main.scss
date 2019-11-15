@@ -1,6 +1,13 @@
 body {
-    min-width : 100vh;
-    background: linear-gradient(90deg, #d3fff1, #efc7ff);
+    font-family: 'Open Sans', sans-serif;
+
+    .wrapper {
+        min-height    : 100vh;
+        padding-top   : 10px;
+        padding-bottom: 10px;
+        padding-top   : 56px;
+        background    : linear-gradient(90deg, #d3fff1, #efc7ff);
+    }
 }
 
 .authForm {
