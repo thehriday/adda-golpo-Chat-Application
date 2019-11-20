@@ -1,6 +1,6 @@
 body{font-family:'Open Sans', sans-serif}body .wrapper{min-height:100vh;padding-top:10px;padding-bottom:10px;padding-top:56px;background:-webkit-gradient(linear, left top, right top, from(#d3fff1), to(#efc7ff));background:linear-gradient(90deg, #d3fff1, #efc7ff)}.authForm{display:-webkit-box;display:flex;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center}.authForm .formContainer{min-width:550px;min-height:368px;background:white;padding:60px 70px;border-radius:15px;box-shadow:1px 4px 10px 0px #9e9a9adb}
 
-nav{z-index:10000}nav .navbarPhoto{width:30px;height:30px;border-radius:50%}nav .authNavbar li.nav-item{min-width:105px}nav .authNavbar li>a{padding:0;text-align:center}nav .authNavbar li>a i{font-size:25px !important}
+nav{z-index:10000}nav .navbarPhoto{width:30px;height:30px;border-radius:50%}nav .authNavbar{-webkit-box-flex:1;flex:1;display:-webkit-box;display:flex}nav .authNavbar .search-bar{-webkit-box-flex:1;flex:1;display:-webkit-box;display:flex;-webkit-box-pack:center;justify-content:center;-webkit-box-align:center;align-items:center;padding:0 50px}nav .authNavbar li.nav-item{min-width:105px}nav .authNavbar li>a{padding:0;text-align:center}nav .authNavbar li>a i{font-size:25px !important}
 
 
 .signupPage{padding-bottom:20px}

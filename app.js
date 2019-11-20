@@ -15,6 +15,7 @@ require('./passport/passport');
 const authRoute = require('./routes/authRoute');
 const oAuthRouter = require('./routes/oAuthRouter');
 const successMsgRoute = require('./routes/successMsgRoute');
+const userRoute = require('./routes/userRoute');
 
 // app
 const app = express();
@@ -74,9 +75,10 @@ app.get('/', (req, res) => res.render('homePage'));
 app.use(authRoute);
 // oAuth router
 app.use('/oauth', oAuthRouter);
-
 // success message router
 app.use(successMsgRoute);
+// user route
+app.use(userRoute);
 
 // error handling middleware
 app.use((err, req, res, next) => {
@@ -93,7 +95,7 @@ app.use((req, res) => {
 mongoose
   .connect(
     `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@blog-site-lxobl.mongodb.net/project_name`,
-    { useNewUrlParser: true }
+    { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => {
     app.listen(process.env.PORT, () => {

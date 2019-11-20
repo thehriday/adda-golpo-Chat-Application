@@ -1,25 +1,35 @@
 nav {
-    z-index: 10000;
+  z-index: 10000;
 
-    .navbarPhoto {
-        width        : 30px;
-        height       : 30px;
-        border-radius: 50%;
+  .navbarPhoto {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  }
+
+  .authNavbar {
+    flex: 1;
+    display: flex;
+
+    .search-bar {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 50px;
     }
 
-    .authNavbar {
-        li.nav-item {
-            min-width: 105px;
-        }
-
-        li>a {
-            padding   : 0;
-            text-align: center;
-
-            i {
-                font-size: 25px !important;
-            }
-        }
+    li.nav-item {
+      min-width: 105px;
     }
 
+    li > a {
+      padding: 0;
+      text-align: center;
+
+      i {
+        font-size: 25px !important;
+      }
+    }
+  }
 }
