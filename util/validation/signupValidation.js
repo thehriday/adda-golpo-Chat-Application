@@ -33,7 +33,7 @@ const signupValidation = async data => {
     validationError.push('Username should be between 3 to 15 characters.');
   } else if (validator.isNumeric(username)) {
     validationError.push('Username should be contain at least one character.');
-  } else if (username.trim().indexOf !== 1) {
+  } else if (username.indexOf(' ') !== -1) {
     validationError.push('Username cannot contain space');
   } else {
     const isUserNameExists = await User.findOne({ username });

@@ -1,0 +1,42 @@
+<div class="wrapper searchUser">
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-lg-6">
+        <img src="<%= searchUser.photoLink %>" alt="<%= searchUser.name %>" />
+        <div class="information">
+          <a href="user/<%= searchUser.username%>"><%= searchUser.name %></a>
+          <h5><%= searchUser.email %></h5>
+          <hr />
+          <% if (alreadyFriend){%>
+          <button class="btn btn-primary btn-block" disabled>
+            Already Friend
+          </button>
+          <%} else if(sendRequest){%>
+
+          <form action="/cancel-request" method="post">
+            <input
+              type="hidden"
+              name="searchUser"
+              value="<%= searchUser._id %>"
+            />
+            <button type="submit" class="btn btn-warning btn-block">
+              Cancel Request
+            </button>
+          </form>
+          <%} else {%>
+          <form action="/send-request" method="post">
+            <input
+              type="hidden"
+              name="searchUser"
+              value="<%= searchUser._id %>"
+            />
+            <button class="btn btn-primary btn-block">
+              <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Friend
+            </button>
+          </form>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

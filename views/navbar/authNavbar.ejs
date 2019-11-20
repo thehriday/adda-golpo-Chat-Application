@@ -1,17 +1,19 @@
 <div class="authNavbar">
   <div class="search-bar">
-    <div class="input-group">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Username"
-        aria-label="Username"
-        aria-describedby="basic-addon1"
-      />
-      <div class="input-group-append">
-        <button class="btn btn-primary">Search</button>
+    <form style="flex: 1;" action="/search" method="get">
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Search your friend"
+          name="user"
+          value="<%= typeof(searchName) !== 'undefined' ? searchName : '' %>"
+        />
+        <div class="input-group-append">
+          <button type="submit" class="btn btn-primary">Search</button>
+        </div>
       </div>
-    </div>
+    </form>
   </div>
   <ul class="navbar-nav">
     <li class="nav-item">

@@ -67,5 +67,8 @@
     "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
     "validator": "^11.1.0"
+  },
+  "engines": {
+    "node": "12.13.1"
   }
 }

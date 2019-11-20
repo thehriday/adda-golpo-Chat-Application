@@ -1,0 +1,12 @@
+@import './scssVariable.scss';
+
+.errorPage {
+  width: 100%;
+  height: 100vh;
+  background: #9873e3;
+  background: $linear-background;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

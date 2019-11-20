@@ -31,7 +31,10 @@ const userSchema = new Schema(
     },
     passwordResetTime: {
       type: Date
-    }
+    },
+    friendList: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    friendRequest: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    sendRequest: [{ type: Schema.Types.ObjectId, ref: 'User' }]
   },
   {
     timestamps: true

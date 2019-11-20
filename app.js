@@ -15,7 +15,7 @@ require('./passport/passport');
 const authRoute = require('./routes/authRoute');
 const oAuthRouter = require('./routes/oAuthRouter');
 const successMsgRoute = require('./routes/successMsgRoute');
-const userRoute = require('./routes/userRoute');
+const authUserRoute = require('./routes/authUserRoute');
 
 // app
 const app = express();
@@ -78,17 +78,17 @@ app.use('/oauth', oAuthRouter);
 // success message router
 app.use(successMsgRoute);
 // user route
-app.use(userRoute);
+app.use(authUserRoute);
 
 // error handling middleware
 app.use((err, req, res, next) => {
   console.log('server error', err);
-  res.render('error/500');
+  res.render('error/500', { title: 'Server Error' });
 });
 
 // 404 middleware
 app.use((req, res) => {
-  res.render('error/404');
+  res.render('error/404', { title: 'Page Not Found' });
 });
 
 // database connection
