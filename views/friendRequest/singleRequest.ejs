@@ -1,0 +1,10 @@
+<div class="singleRequest">
+  <img src="<%= singleRequest.photoLink %>" alt="<%= singleRequest.name %>" />
+  <div class="information">
+    <a href="/user/<%= singleRequest.username %>"><%= singleRequest.name %></a>
+    <h5><%= singleRequest.email %></h5>
+    <hr />
+    <%- include('requestAction',{userId:singleRequest._id})%>
+  </div>
+</div>
+<hr />

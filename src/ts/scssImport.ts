@@ -4,5 +4,5 @@ import '../scss/login.scss';
 import '../scss/signup.scss';
 import '../scss/oauth.scss';
 import '../scss/homePage.scss';
-import '../scss/errorPage.scss';
+import '../scss/messagePage.scss';
 import '../scss/searchUser.scss';

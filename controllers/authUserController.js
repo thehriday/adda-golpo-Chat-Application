@@ -11,11 +11,11 @@ exports.getSearchUser = (req, res) => {
     return res.render('error/noUserFound', { title: 'No User Found' });
   }
   if (validator.isEmail(user)) {
-    searchResult = User.findOne({ email: user });
+    searchResult = User.findOne({ email: user }, ['-password']);
   } else {
-    searchResult = User.findOne({ username: user });
+    searchResult = User.findOne({ username: user }, [-'password']);
   }
-  searchResult.then(async searchUser => {
+  searchResult.then(searchUser => {
     if (!searchUser) {
       return res.render('error/noUserFound', {
         searchName: user,
@@ -24,13 +24,16 @@ exports.getSearchUser = (req, res) => {
     }
     const alreadyFriend = req.user.friendList.includes(searchUser._id);
     const sendRequest = req.user.sendRequest.includes(searchUser._id);
+    const friendRequest = req.user.friendRequest.includes(searchUser._id);
 
     res.render('searchUser/searchUser', {
+      title: user,
+      userId: searchUser._id,
       searchName: user,
       searchUser,
       alreadyFriend,
       sendRequest,
-      title: user
+      friendRequest
     });
   });
 };
@@ -62,6 +65,58 @@ exports.postCancelRequest = (req, res, next) => {
   const targetUser = User.updateOne(
     { _id: searchUser },
     { $pullAll: { friendRequest: [req.user] } }
+  );
+  Promise.all([curentUser, targetUser])
+    .then(result => {
+      res.redirect('back');
+    })
+    .catch(err => {
+      next(err);
+    });
+};
+
+exports.getFriendrequest = (req, res, next) => {
+  User.findOne({ _id: req.user }, ['friendRequest'])
+    .populate('friendRequest', ['-password'])
+    .then(allRequest => {
+      res.render('friendRequest/friendRequest', {
+        friendRequest: allRequest.friendRequest
+      });
+    })
+    .catch(err => next(err));
+};
+
+exports.postAcceptRequest = (req, res, next) => {
+  const { userId } = req.body;
+  req.user.friendRequest = req.user.friendRequest.filter(
+    requestId => requestId.toString() !== userId
+  );
+  req.user.friendList = [...req.user.friendList, userId];
+
+  const curentUser = req.user.save();
+  const targetUser = User.updateOne(
+    { _id: userId },
+    { $push: { friendList: req.user }, $pullAll: { sendRequest: [req.user] } }
+  );
+  Promise.all([curentUser, targetUser])
+    .then(result => {
+      exports.postDeleteRequest(req, res, next);
+    })
+    .catch(err => {
+      next(err);
+    });
+};
+
+exports.postDeleteRequest = (req, res, next) => {
+  const { userId } = req.body;
+
+  req.user.friendRequest = req.user.friendRequest.filter(
+    requestId => requestId.toString() !== userId
+  );
+  const curentUser = req.user.save();
+  const targetUser = User.updateOne(
+    { _id: userId },
+    { $pullAll: { sendRequest: [req.user] } }
   );
   Promise.all([curentUser, targetUser])
     .then(result => {

@@ -24,10 +24,15 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="/notifications"
-        ><i class="fa fa-bell" aria-hidden="true"></i>
+      <a class="nav-link" href="/friend_request"
+        ><i class="fa fa-users" aria-hidden="true"></i>
         <br />
-        <span class="p-0 m-0">Notifications</span>
+        <span class="p-0 m-0">Friend Request </span>
+        <% if(user.friendRequest.length){ %>
+        <span style="background: red;" class="badge badge-dark"
+          ><%= user.friendRequest.length%></span
+        >
+        <% } %>
       </a>
     </li>
 

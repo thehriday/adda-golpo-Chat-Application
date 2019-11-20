@@ -1,0 +1,15 @@
+<div class="request-action">
+  <form action="/accept-friend-request" method="post">
+    <input type="hidden" name="userId" value="<%= userId %>" />
+    <button class="btn btn-primary btn-block">
+      <i class="fa fa-plus-circle" aria-hidden="true"></i> Accept Request
+    </button>
+  </form>
+  <form action="/delete-friend-request" method="post">
+    <input type="hidden" name="userId" value="<%= userId %>" />
+    <button type="submit" class="btn btn-danger btn-block">
+      <i class="fa fa-trash" aria-hidden="true"></i>
+      Delete Request
+    </button>
+  </form>
+</div>

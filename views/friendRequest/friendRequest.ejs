@@ -1,0 +1,15 @@
+<div class="wrapper searchUser">
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-lg-8">
+        <% friendRequest.forEach(singleRequest=>{%> <%-
+        include('singleRequest',{singleRequest}) %> <% }) %> <%
+        if(friendRequest.length===0){%>
+        <div class="no-request">
+          <h1>Your Have no Friend Request</h1>
+        </div>
+        <%}%>
+      </div>
+    </div>
+  </div>
+</div>

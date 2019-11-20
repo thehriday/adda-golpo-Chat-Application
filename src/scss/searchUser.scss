@@ -7,8 +7,20 @@
       background: white;
       border-radius: 10px;
       box-shadow: 1px 4px 10px 0px #9e9a9adb;
-      display: flex;
       padding: 60px;
+      .no-request {
+        text-align: center;
+      }
+    }
+    .singleRequest {
+      display: flex;
+    }
+  }
+  .request-action {
+    display: flex;
+    flex-direction: row;
+    form {
+      padding: 0 10px;
     }
   }
   img {

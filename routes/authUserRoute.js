@@ -3,7 +3,10 @@ const express = require('express');
 const {
   getSearchUser,
   postSendRequest,
-  postCancelRequest
+  postCancelRequest,
+  getFriendrequest,
+  postAcceptRequest,
+  postDeleteRequest
 } = require('../controllers/authUserController');
 
 const router = express.Router();
@@ -25,5 +28,14 @@ router.post('/send-request', postSendRequest);
 
 // calcel friend request
 router.post('/cancel-request', postCancelRequest);
+
+// friend request route
+router.get('/friend_request', getFriendrequest);
+
+// accept friend request route
+router.post('/accept-friend-request', postAcceptRequest);
+
+// delete friend request route
+router.post('/delete-friend-request', postDeleteRequest);
 
 module.exports = router;

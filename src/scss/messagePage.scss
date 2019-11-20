@@ -1,12 +1,13 @@
 @import './scssVariable.scss';
 
-.errorPage {
+.messagePage {
   width: 100%;
   height: 100vh;
   background: #9873e3;
   background: $linear-background;
   color: black;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
