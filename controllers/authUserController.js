@@ -4,38 +4,42 @@ const validator = require('validator');
 const User = require('../models/User');
 const FriendList = require('../models/FriendList');
 
-exports.getSearchUser = (req, res) => {
+exports.getSearchUser = (req, res, next) => {
   const { user } = req.query;
   let searchResult;
   if (!user) {
     return res.render('error/noUserFound', { title: 'No User Found' });
   }
   if (validator.isEmail(user)) {
-    searchResult = User.findOne({ email: user }, ['-password']);
+    searchResult = User.findOne({ email: RegExp(user, 'i') }, ['-password']);
   } else {
-    searchResult = User.findOne({ username: user }, [-'password']);
+    searchResult = User.findOne({ username: RegExp(user, 'i') }, [-'password']);
   }
-  searchResult.then(searchUser => {
-    if (!searchUser) {
-      return res.render('error/noUserFound', {
-        searchName: user,
-        title: 'No User Found'
-      });
-    }
-    const alreadyFriend = req.user.friendList.includes(searchUser._id);
-    const sendRequest = req.user.sendRequest.includes(searchUser._id);
-    const friendRequest = req.user.friendRequest.includes(searchUser._id);
+  searchResult
+    .then(searchUser => {
+      if (!searchUser) {
+        return res.render('error/noUserFound', {
+          searchName: user,
+          title: 'No User Found'
+        });
+      }
+      const alreadyFriend = req.user.friendList.includes(searchUser._id);
+      const sendRequest = req.user.sendRequest.includes(searchUser._id);
+      const friendRequest = req.user.friendRequest.includes(searchUser._id);
 
-    res.render('searchUser/searchUser', {
-      title: user,
-      userId: searchUser._id,
-      searchName: user,
-      searchUser,
-      alreadyFriend,
-      sendRequest,
-      friendRequest
+      res.render('searchUser/searchUser', {
+        title: user,
+        userId: searchUser._id,
+        searchName: user,
+        searchUser,
+        alreadyFriend,
+        sendRequest,
+        friendRequest
+      });
+    })
+    .catch(err => {
+      next(err);
     });
-  });
 };
 
 exports.postSendRequest = (req, res, next) => {

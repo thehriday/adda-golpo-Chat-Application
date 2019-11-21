@@ -41,4 +41,11 @@ const userSchema = new Schema(
   }
 );
 
+userSchema.pre('save', function(next) {
+  this.friendList = [...new Set(this.friendList)];
+  this.friendRequest = [...new Set(this.friendRequest)];
+  this.sendRequest = [...new Set(this.sendRequest)];
+  next();
+});
+
 module.exports = mongoose.model('User', userSchema);

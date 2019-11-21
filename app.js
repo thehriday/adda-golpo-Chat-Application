@@ -17,6 +17,9 @@ const oAuthRouter = require('./routes/oAuthRouter');
 const successMsgRoute = require('./routes/successMsgRoute');
 const authUserRoute = require('./routes/authUserRoute');
 
+// controller
+const homeController = require('./controllers/homeController');
+
 // app
 const app = express();
 app.set('view engine', 'ejs');
@@ -69,7 +72,7 @@ app.use((req, res, next) => {
 // routes
 
 // home page
-app.get('/', (req, res) => res.render('homePage'));
+app.get('/', homeController);
 
 // auth router
 app.use(authRoute);
