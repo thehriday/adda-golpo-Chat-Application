@@ -1,3 +1,0 @@
-import './scssImport';
-
-import './passwordValidation';

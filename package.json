@@ -20,7 +20,8 @@
   ],
   "nodemonConfig": {
     "ignore": [
-      "public/*"
+      "public/*",
+      "src/*"
     ]
   },
   "license": "ISC",

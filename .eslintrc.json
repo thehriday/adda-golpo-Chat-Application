@@ -2,6 +2,7 @@
   "env": {
     "browser": true,
     "commonjs": true,
+
     "es6": true,
     "node": true
   },
@@ -15,6 +16,7 @@
     "func-names": "off",
     "no-param-reassign": "off",
     "no-underscore-dangle": "off",
-    "node/no-unpublished-require": "off"
+    "node/no-unpublished-require": "off",
+    "no-restricted-globals": "off"
   }
 }
