@@ -4,6 +4,7 @@ const autoprefixer = require('autoprefixer');
 
 module.exports = {
   entry: './src/js/index.js',
+  mode: 'production',
   output: {
     filename: 'script.js',
     path: path.resolve(__dirname, 'public', 'js')
@@ -34,6 +35,16 @@ module.exports = {
           // Compiles Sass to CSS
           'sass-loader'
         ]
+      },
+      {
+        test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-react']
+          }
+        }
       }
     ]
   },
