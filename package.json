@@ -12,7 +12,7 @@
   "keywords": [
     "add-golpo",
     "chat app with nodejs",
-    "messagge sharing app with expressjs"
+    "message sharing app with expressjs"
   ],
   "author": "Shahriar Hridoy",
   "contributors": [
@@ -45,8 +45,6 @@
     "postcss-loader": "^3.0.0",
     "prettier": "^1.18.2",
     "sass-loader": "^8.0.0",
-    "ts-loader": "^6.2.1",
-    "typescript": "^3.6.4",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.9"
   },
