@@ -2,6 +2,7 @@ const { randomBytes } = require('crypto');
 const passport = require('passport');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const signupValidation = require('../util/validation/signupValidation');
 const User = require('../models/User');
@@ -73,7 +74,8 @@ exports.getActivationAccount = (req, res, next) => {
     })
     .then(user => {
       if (user) {
-        req.session.passport = { user: user.id };
+        const token = jwt.sign({ _id: user._id }, process.env.SECRET_CODE);
+        req.session.passport.user = { id: user.id, token };
         res.redirect('/');
       }
     })

@@ -1,0 +1,22 @@
+.singleFriendList {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  cursor: pointer;
+
+  img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+  }
+  .info {
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &:hover {
+    background: #eaeaea;
+  }
+}

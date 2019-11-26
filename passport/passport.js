@@ -1,4 +1,5 @@
 const passport = require('passport');
+const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
 // strategy
@@ -7,10 +8,11 @@ require('./googleStrategy');
 require('./facebookStrategy');
 
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  const token = jwt.sign({ _id: user._id }, process.env.SECRET_CODE);
+  done(null, { id: user.id, token });
 });
 
-passport.deserializeUser((id, done) => {
+passport.deserializeUser(({ id }, done) => {
   User.findById(id)
     .then(user => {
       if (user) {

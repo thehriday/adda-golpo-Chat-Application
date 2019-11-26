@@ -40,6 +40,7 @@ router.post('/change_reset_password', postChangeRestPassword);
 // logout route
 router.post('/logout', (req, res) => {
   req.logOut();
+  res.clearCookie('token');
   res.redirect('/');
 });
 

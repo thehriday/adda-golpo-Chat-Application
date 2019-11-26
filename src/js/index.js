@@ -1,11 +1,13 @@
 require('./scssImport');
 
-require('./passwordValidation');
-
-require('./authHomePage');
-
-// react part
+if (
+  location.pathname.replace(/\//g, '') === 'signup' ||
+  location.pathname.indexOf('reset_password/token') !== -1
+) {
+  require('./passwordValidation');
+}
 
 if (location.pathname === '/') {
-  require('./react/authHomePage');
+  require('./authHomePage');
+  require('./react');
 }

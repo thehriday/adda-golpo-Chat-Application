@@ -1,4 +1,9 @@
 const express = require('express');
+
+const app = express();
+
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
 const mongoose = require('mongoose');
 const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session');
@@ -12,6 +17,7 @@ require('dotenv').config();
 require('./passport/passport');
 
 // import routes
+const restApi = require('./routes/restApi');
 const authRoute = require('./routes/authRoute');
 const oAuthRouter = require('./routes/oAuthRouter');
 const successMsgRoute = require('./routes/successMsgRoute');
@@ -20,14 +26,16 @@ const authUserRoute = require('./routes/authUserRoute');
 // controller
 const homeController = require('./controllers/homeController');
 
-// app
-const app = express();
 app.set('view engine', 'ejs');
+
+// parse json from body
+app.use(express.json());
+// api route
+app.use('/api', restApi);
 
 // middleware
 app.use(expressLayouts);
 app.use(express.static('public'));
-app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(
   fileUpload({
@@ -47,7 +55,7 @@ store.on('error', function(error) {
 // session config middleware
 app.use(
   session({
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SECRET_CODE,
     resave: false,
     saveUninitialized: false,
     cookie: { maxAge: 1000 * 60 * 60 * 24 * 30 },
@@ -86,12 +94,12 @@ app.use(authUserRoute);
 // error handling middleware
 app.use((err, req, res, next) => {
   console.log('server error', err);
-  res.render('error/500', { title: 'Server Error' });
+  res.status(500).render('error/500', { title: 'Server Error' });
 });
 
 // 404 middleware
 app.use((req, res) => {
-  res.render('error/404', { title: 'Page Not Found' });
+  res.status(404).render('error/404', { title: 'Page Not Found' });
 });
 
 // database connection
@@ -101,7 +109,7 @@ mongoose
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => {
-    app.listen(process.env.PORT, () => {
+    http.listen(process.env.PORT, () => {
       console.log(
         '\x1b[33m%s\x1b[0m',
         `App is running on port ${process.env.PORT}`

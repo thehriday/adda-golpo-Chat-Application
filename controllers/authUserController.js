@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 
 const User = require('../models/User');
-const FriendList = require('../models/FriendList');
 
 exports.getSearchUser = (req, res, next) => {
   const { user } = req.query;
