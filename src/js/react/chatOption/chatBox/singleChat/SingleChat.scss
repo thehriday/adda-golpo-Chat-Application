@@ -1,0 +1,30 @@
+.SingleChat {
+  min-height: 70px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 24px;
+
+  img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid gray;
+  }
+
+  .message {
+    margin-left: 15px;
+    a {
+      color: #0e0e0f;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    p {
+      font-size: 14px;
+    }
+  }
+
+  &:hover {
+    background: #fafafa;
+  }
+}

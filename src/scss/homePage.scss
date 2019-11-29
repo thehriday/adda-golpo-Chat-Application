@@ -30,6 +30,7 @@
   .friendListOption {
     height: calc(100vh - 70px);
     padding: 20px;
+    padding-right: 0;
 
     nav {
       a {
@@ -45,8 +46,8 @@
       height: 90%;
     }
   }
-  .chatOption {
+  .chatOption-container {
+    padding: 0;
     height: calc(100vh - 70px);
-    background: linear-gradient(90deg, #d3fff1, #efc7ff);
   }
 }

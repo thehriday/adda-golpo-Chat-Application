@@ -1,0 +1,26 @@
+.ChatNavBar {
+  height: 80px;
+  padding: 0 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-shadow: 4px 3px 8px #b3b3b3;
+  img {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    border: 1px solid gray;
+  }
+  a {
+    font-size: 20px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .info {
+    margin-left: 15px;
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+}
