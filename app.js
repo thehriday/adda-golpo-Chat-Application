@@ -102,6 +102,9 @@ app.use((req, res) => {
   res.status(404).render('error/404', { title: 'Page Not Found' });
 });
 
+// socket.io part
+require('./socket.io/receiveMessage')(io);
+
 // database connection
 mongoose
   .connect(

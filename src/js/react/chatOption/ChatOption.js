@@ -14,10 +14,7 @@ function ChatOption(props) {
     <React.Fragment>
       <ChatNavBar targetUser={props.targetUser} />
       <ChatBox />
-      <MessageSendOption
-        userId={props.userId}
-        targetUserId={props.targetUser._id}
-      />
+      <MessageSendOption targetUserId={props.targetUser._id} />
     </React.Fragment>
   );
 }

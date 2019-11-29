@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
+import io from 'socket.io-client';
 
 import './MessageSendOption.scss';
+import cookieParser from '../../../util/cookieParser';
+
+import { SEND_MESSAGE } from '../../../../../socket.io/emitType';
 
 export default class MessageSendOption extends Component {
   constructor(props) {
     super(props);
+    this.socket = io();
     this.state = {
       message: ''
     };
@@ -16,8 +21,13 @@ export default class MessageSendOption extends Component {
   }
   submitHandler(key) {
     if (key === 'Enter' && this.state.message) {
-      console.log(this.state.message);
-      console.log(this.props);
+      const message = {
+        senderToken: cookieParser().token,
+        receiver: this.props.targetUserId,
+        messageBody: this.state.message
+      };
+
+      this.socket.emit(SEND_MESSAGE, message);
 
       this.setState({
         message: ''
