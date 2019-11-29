@@ -18,6 +18,9 @@ export default function ChatBox() {
   return (
     <div className="ChatBox">
       <SingleChat message={message} />
+      <SingleChat message={message} />
+      <SingleChat message={message} />
+      <SingleChat message={message} />
     </div>
   );
 }

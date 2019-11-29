@@ -2,18 +2,17 @@ import React from 'react';
 
 import './ChatNavBar.scss';
 
-export default function ChatNavBar() {
+export default function ChatNavBar(props) {
   return (
     <React.Fragment>
       <nav className="ChatNavBar">
-        <a href={`user/username`}>
-          <img
-            src="https://res.cloudinary.com/dd1yyqwwy/image/upload/v1574792794/qa2ueqseztsd9ct1pztr.jpg"
-            alt="name"
-          />
+        <a href={`/user/${props.targetUser.username}`}>
+          <img src={props.targetUser.photoLink} alt={props.targetUser.name} />
         </a>
         <div className="info">
-          <a href={`user/username`}>Shahriar Hridoy</a>
+          <a href={`/user/${props.targetUser.username}`}>
+            {props.targetUser.name}
+          </a>
           <p>Active</p>
         </div>
       </nav>

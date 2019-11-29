@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import SingleFriendList from '../../components/singleFriendList/SingleFriendList';
-import { userActionAsync } from '../../store/action/userAction';
+import { friendListActionAsync } from '../../store/action/friendListAction';
 
 class FriendList extends Component {
   componentDidMount() {
@@ -11,9 +11,9 @@ class FriendList extends Component {
   render() {
     return (
       <div>
-        {this.props.user.loading ? (
+        {this.props.friendListReducer.loading ? (
           <h3 className="center">Loading...</h3>
-        ) : this.props.user.friendList.length === 0 ? (
+        ) : this.props.friendListReducer.friendList.length === 0 ? (
           <div className="center" style={{ paddingTop: 'calc(30vh - 80px)' }}>
             <span style={{ fontSize: '80px', color: '#c3c3c3' }}>
               <i class="fa fa-users" aria-hidden="true"></i>
@@ -22,8 +22,13 @@ class FriendList extends Component {
             <p>Please add a friend to chat</p>
           </div>
         ) : (
-          this.props.user.friendList.map(singleFriend => (
-            <SingleFriendList key={singleFriend._id} user={singleFriend} />
+          this.props.friendListReducer.friendList.map(singleFriend => (
+            <SingleFriendList
+              key={singleFriend._id}
+              targetUser={singleFriend}
+              userId={this.props.friendListReducer.userId}
+              isSelected={singleFriend.isSelected}
+            />
           ))
         )}
       </div>
@@ -33,12 +38,12 @@ class FriendList extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.user
+    friendListReducer: state.friendListReducer
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
-    updateState: () => dispatch(userActionAsync())
+    updateState: () => dispatch(friendListActionAsync())
   };
 };
 

@@ -5,6 +5,27 @@
   padding: 0 10px;
   cursor: pointer;
 
+  .profile-picture {
+    position: relative;
+  }
+
+  .active-status {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1px solid gainsboro;
+    position: absolute;
+    right: 0px;
+    bottom: 6px;
+  }
+
+  .active-status.active {
+    background: #2aff03;
+  }
+  .active-status.inactive {
+    background: #868686;
+  }
+
   img {
     width: 60px;
     height: 60px;
@@ -19,4 +40,8 @@
   &:hover {
     background: #eaeaea;
   }
+}
+
+.singleFriendList.active {
+  background: #e5f8e6;
 }

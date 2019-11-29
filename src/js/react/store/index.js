@@ -1,12 +1,19 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-import userReducer from './reducer/userReducer';
+import friendListReducer from './reducer/friendListReducer';
+import chatReducer from './reducer/chatReducer';
 
 const rootReducer = combineReducers({
-  user: userReducer
+  friendListReducer,
+  chatReducer
 });
 
-const store = createStore(rootReducer, applyMiddleware(thunk));
+const store = createStore(
+  rootReducer,
+  {},
+  composeWithDevTools(applyMiddleware(thunk))
+);
 
 export default store;
