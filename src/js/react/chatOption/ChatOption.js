@@ -15,6 +15,7 @@ function ChatOption(props) {
       <ChatNavBar targetUser={props.targetUser} />
       <ChatBox
         userId={props.userId}
+        targetUserId={props.targetUser._id}
         messageList={props.messageList}
         messageLoading={props.messageLoading}
       />

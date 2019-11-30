@@ -1,5 +1,9 @@
-nav {
+nav.main-mav-bar {
   z-index: 10000;
+
+  .logo {
+    width: 140px;
+  }
 
   .navbarPhoto {
     width: 30px;

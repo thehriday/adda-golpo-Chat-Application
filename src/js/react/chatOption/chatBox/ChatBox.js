@@ -6,18 +6,21 @@ import { animateScroll } from 'react-scroll';
 import './ChatBox.scss';
 
 import SingleChat from './singleChat/SingleChat';
+import CenterElement from '../../components/centerElement/CenterElement';
 
 import { updateMessageList } from '../../store/action/chatAction';
 
 function ChatBox(props) {
   let ChatBoxRef = null;
-  if (props.messageList.length) {
+
+  useEffect(() => {
+    const peerId = [...props.userId, ...props.targetUserId].sort().join('');
     const socket = io();
-    const { peerId } = props.messageList[0];
     socket.on(peerId, newMessage => {
       props.updateMessageList(newMessage);
     });
-  }
+  }, [props.targetUserId]);
+
   useEffect(() => {
     ChatBoxRef.scroll(0, ChatBoxRef.scrollHeight);
   });
@@ -25,9 +28,18 @@ function ChatBox(props) {
   return (
     <div ref={element => (ChatBoxRef = element)} className="ChatBox">
       {props.messageLoading ? (
-        <Loading />
+        <CenterElement>
+          <h1>Loading...</h1>
+        </CenterElement>
       ) : props.messageList.length === 0 ? (
-        <h1>No Chat</h1>
+        <CenterElement>
+          <i
+            style={{ fontSize: 80 }}
+            class="fa fa-frown-o"
+            aria-hidden="true"
+          ></i>
+          <h4>No message found</h4>
+        </CenterElement>
       ) : (
         props.messageList.map(singleMessage => (
           <SingleChat userId={props.userId} singleMessage={singleMessage} />
@@ -44,18 +56,3 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(null, mapDispatchToProps)(ChatBox);
-
-function Loading() {
-  return (
-    <div
-      style={{
-        height: '100%',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}
-    >
-      <h1>Loading...</h1>
-    </div>
-  );
-}
