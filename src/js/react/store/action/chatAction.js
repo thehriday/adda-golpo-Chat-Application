@@ -1,4 +1,11 @@
-import { UPDATE_CHAT_REDUCER } from '../action/actionType';
+import axios from 'axios';
+
+import cookieParser from '../../../util/cookieParser';
+import {
+  UPDATE_CHAT_REDUCER,
+  FETCH_MESSAGES,
+  UPDATE_MESSAGE
+} from '../action/actionType';
 
 const chatAction = ({ userId, targetUser }) => {
   return {
@@ -10,8 +17,40 @@ const chatAction = ({ userId, targetUser }) => {
   };
 };
 
+const fetchMessages = messageList => {
+  return {
+    type: FETCH_MESSAGES,
+    payload: {
+      messageList
+    }
+  };
+};
+
 export const chatActionAsync = data => {
   return dispatch => {
     dispatch(chatAction(data));
+    axios
+      .post(
+        '/api/get-messages',
+        {
+          receiverId: data.targetUser._id
+        },
+        {
+          headers: { authorization: 'Bearer ' + cookieParser().token }
+        }
+      )
+      .then(response => {
+        dispatch(fetchMessages(response.data));
+      })
+      .catch(err => console.log(err));
+  };
+};
+
+export const updateMessageList = newMessage => {
+  return {
+    type: UPDATE_MESSAGE,
+    payload: {
+      newMessage
+    }
   };
 };

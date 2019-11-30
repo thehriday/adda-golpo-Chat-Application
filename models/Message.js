@@ -26,4 +26,13 @@ const messageSchema = new Schema(
   { timestamps: true }
 );
 
+messageSchema.post('save', (result, next) => {
+  result
+    .populate('sender', ['name', 'username', 'email', 'photoLink'])
+    .execPopulate()
+    .then(function() {
+      next();
+    });
+});
+
 module.exports = mongoose.model('Message', messageSchema);

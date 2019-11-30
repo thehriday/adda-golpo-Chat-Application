@@ -13,7 +13,11 @@ function ChatOption(props) {
   ) : (
     <React.Fragment>
       <ChatNavBar targetUser={props.targetUser} />
-      <ChatBox />
+      <ChatBox
+        userId={props.userId}
+        messageList={props.messageList}
+        messageLoading={props.messageLoading}
+      />
       <MessageSendOption targetUserId={props.targetUser._id} />
     </React.Fragment>
   );
@@ -23,7 +27,9 @@ const mapStateToProps = state => {
   return {
     userId: state.chatReducer.userId,
     targetUser: state.chatReducer.targetUser,
-    loading: state.chatReducer.loading
+    loading: state.chatReducer.loading,
+    messageLoading: state.chatReducer.messageLoading,
+    messageList: state.chatReducer.messageList
   };
 };
 

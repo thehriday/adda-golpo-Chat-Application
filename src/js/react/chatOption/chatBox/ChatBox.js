@@ -1,26 +1,61 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import io from 'socket.io-client';
+import { animateScroll } from 'react-scroll';
 
 import './ChatBox.scss';
 
 import SingleChat from './singleChat/SingleChat';
 
-const message = {
-  sender: {
-    name: 'Md Hridoy',
-    username: 'mshridoy',
-    photoLink:
-      'https://res.cloudinary.com/dd1yyqwwy/image/upload/v1574792794/qa2ueqseztsd9ct1pztr.jpg'
-  },
-  messageBody: 'How are you'
+import { updateMessageList } from '../../store/action/chatAction';
+
+function ChatBox(props) {
+  let ChatBoxRef = null;
+  if (props.messageList.length) {
+    const socket = io();
+    const { peerId } = props.messageList[0];
+    socket.on(peerId, newMessage => {
+      props.updateMessageList(newMessage);
+    });
+  }
+  useEffect(() => {
+    ChatBoxRef.scroll(0, ChatBoxRef.scrollHeight);
+  });
+
+  return (
+    <div ref={element => (ChatBoxRef = element)} className="ChatBox">
+      {props.messageLoading ? (
+        <Loading />
+      ) : props.messageList.length === 0 ? (
+        <h1>No Chat</h1>
+      ) : (
+        props.messageList.map(singleMessage => (
+          <SingleChat userId={props.userId} singleMessage={singleMessage} />
+        ))
+      )}
+    </div>
+  );
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    updateMessageList: newMessage => dispatch(updateMessageList(newMessage))
+  };
 };
 
-export default function ChatBox() {
+export default connect(null, mapDispatchToProps)(ChatBox);
+
+function Loading() {
   return (
-    <div className="ChatBox">
-      <SingleChat message={message} />
-      <SingleChat message={message} />
-      <SingleChat message={message} />
-      <SingleChat message={message} />
+    <div
+      style={{
+        height: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}
+    >
+      <h1>Loading...</h1>
     </div>
   );
 }

@@ -1,9 +1,15 @@
-import { UPDATE_CHAT_REDUCER } from '../action/actionType';
+import {
+  UPDATE_CHAT_REDUCER,
+  FETCH_MESSAGES,
+  UPDATE_MESSAGE
+} from '../action/actionType';
 
 const initialState = {
   userId: '',
   targetUser: {},
-  loading: true
+  loading: true,
+  messageList: [],
+  messageLoading: true
 };
 
 const chatReducer = (state = initialState, action) => {
@@ -13,7 +19,19 @@ const chatReducer = (state = initialState, action) => {
         ...state,
         userId: action.payload.userId,
         targetUser: action.payload.targetUser,
-        loading: false
+        loading: false,
+        messageLoading: true
+      };
+    case FETCH_MESSAGES:
+      return {
+        ...state,
+        messageList: action.payload.messageList,
+        messageLoading: false
+      };
+    case UPDATE_MESSAGE:
+      return {
+        ...state,
+        messageList: [...state.messageList, action.payload.newMessage]
       };
     default:
       return state;

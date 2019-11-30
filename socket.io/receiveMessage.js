@@ -19,7 +19,9 @@ module.exports = io => {
 
         newMessage
           .save()
-          .then(result => console.log(result))
+          .then(result => {
+            io.emit(peerId, result);
+          })
           .catch(err => {
             console.log(err);
           });

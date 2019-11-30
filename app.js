@@ -17,7 +17,7 @@ require('dotenv').config();
 require('./passport/passport');
 
 // import routes
-const restApi = require('./routes/restApi');
+const restApiRouter = require('./routes/restApiRouter');
 const authRoute = require('./routes/authRoute');
 const oAuthRouter = require('./routes/oAuthRouter');
 const successMsgRoute = require('./routes/successMsgRoute');
@@ -31,7 +31,7 @@ app.set('view engine', 'ejs');
 // parse json from body
 app.use(express.json());
 // api route
-app.use('/api', restApi);
+app.use('/api', restApiRouter);
 
 // middleware
 app.use(expressLayouts);
