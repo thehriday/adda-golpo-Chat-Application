@@ -4,7 +4,8 @@ import cookieParser from '../../../util/cookieParser';
 import {
   UPDATE_CHAT_REDUCER,
   FETCH_MESSAGES,
-  UPDATE_MESSAGE
+  UPDATE_MESSAGE,
+  SCROLL_UPDATE_MESSAGE_LIST
 } from '../action/actionType';
 
 const chatAction = ({ userId, targetUser }) => {
@@ -17,11 +18,12 @@ const chatAction = ({ userId, targetUser }) => {
   };
 };
 
-const fetchMessages = messageList => {
+const fetchMessages = ({ data, totalMessages }) => {
   return {
     type: FETCH_MESSAGES,
     payload: {
-      messageList
+      messageList: data,
+      totalMessages
     }
   };
 };
@@ -49,6 +51,14 @@ export const chatActionAsync = data => {
 export const updateMessageList = newMessage => {
   return {
     type: UPDATE_MESSAGE,
+    payload: {
+      newMessage
+    }
+  };
+};
+export const scrollUpdateMessageList = newMessage => {
+  return {
+    type: SCROLL_UPDATE_MESSAGE_LIST,
     payload: {
       newMessage
     }

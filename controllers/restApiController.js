@@ -20,15 +20,32 @@ exports.getFriendList = (req, res) => {
 exports.getMessages = (req, res, next) => {
   const senderId = req.user._id;
   const { receiverId } = req.body;
+  let { dataSkipNumber } = req.body;
+  let sendDataPerReq = 10;
+
   if (!receiverId)
     return res.status(400).json({ msg: 'please include receiver id' });
 
+  if (!dataSkipNumber) {
+    dataSkipNumber = sendDataPerReq;
+  }
+
   const peerId = [...senderId, ...receiverId].sort().join('');
 
-  Message.find({ peerId })
-    .populate('sender', ['name', 'username', 'email', 'photoLink'])
-    .then(result => {
-      res.status(200).json(result);
-    })
-    .catch(err => next(err));
+  Message.countDocuments({ peerId }, (error, count) => {
+    if (error) return next(error);
+    const skipAmount = count > dataSkipNumber ? count - dataSkipNumber : 0;
+    const finalSkipAmount =
+      dataSkipNumber > count + sendDataPerReq ? count : skipAmount;
+    sendDataPerReq = skipAmount === 0 ? count % sendDataPerReq : sendDataPerReq;
+
+    Message.find({ peerId })
+      .skip(finalSkipAmount)
+      .limit(sendDataPerReq)
+      .populate('sender', ['name', 'username', 'email', 'photoLink'])
+      .then(result => {
+        res.status(200).json({ totalMessages: count, data: result });
+      })
+      .catch(err => next(err));
+  });
 };

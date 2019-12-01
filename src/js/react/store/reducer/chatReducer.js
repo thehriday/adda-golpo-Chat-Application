@@ -1,7 +1,8 @@
 import {
   UPDATE_CHAT_REDUCER,
   FETCH_MESSAGES,
-  UPDATE_MESSAGE
+  UPDATE_MESSAGE,
+  SCROLL_UPDATE_MESSAGE_LIST
 } from '../action/actionType';
 
 const initialState = {
@@ -9,7 +10,8 @@ const initialState = {
   targetUser: {},
   loading: true,
   messageList: [],
-  messageLoading: true
+  messageLoading: true,
+  totalMessages: 0
 };
 
 const chatReducer = (state = initialState, action) => {
@@ -26,12 +28,18 @@ const chatReducer = (state = initialState, action) => {
       return {
         ...state,
         messageList: action.payload.messageList,
+        totalMessages: action.payload.totalMessages,
         messageLoading: false
       };
     case UPDATE_MESSAGE:
       return {
         ...state,
         messageList: [...state.messageList, action.payload.newMessage]
+      };
+    case SCROLL_UPDATE_MESSAGE_LIST:
+      return {
+        ...state,
+        messageList: [...action.payload.newMessage, ...state.messageList]
       };
     default:
       return state;
