@@ -1,7 +1,11 @@
 import axios from 'axios';
 
 import cookieParser from '../../../util/cookieParser';
-import { UPDATE_FRIEND_LIST_REDUCER, SELECT_SINGLE_FRIEND } from './actionType';
+import {
+  UPDATE_FRIEND_LIST_REDUCER,
+  SELECT_SINGLE_FRIEND,
+  RESET_DATA_SKIP_NUMBER
+} from './actionType';
 
 const friendListAction = ({ friendList, userId }) => {
   return {
@@ -26,8 +30,15 @@ export const friendListActionAsync = () => {
   };
 };
 
+const restDataSkipNumber = () => {
+  return {
+    type: RESET_DATA_SKIP_NUMBER
+  };
+};
+
 export const selectFriend = targetUserId => {
   return dispatch => {
+    dispatch(restDataSkipNumber());
     dispatch({
       type: SELECT_SINGLE_FRIEND,
       payload: { targetUserId }

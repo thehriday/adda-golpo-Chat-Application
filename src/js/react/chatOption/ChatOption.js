@@ -19,6 +19,7 @@ function ChatOption(props) {
         messageList={props.messageList}
         messageLoading={props.messageLoading}
         totalMessages={props.totalMessages}
+        fetchDataType={props.fetchDataType}
       />
       <MessageSendOption targetUserId={props.targetUser._id} />
     </React.Fragment>
@@ -32,7 +33,10 @@ const mapStateToProps = state => {
     loading: state.chatReducer.loading,
     messageLoading: state.chatReducer.messageLoading,
     messageList: state.chatReducer.messageList,
-    totalMessages: state.chatReducer.totalMessages
+    totalMessages: state.chatReducer.totalMessages,
+    fetchDataType: state.chatReducer.fetchDataType,
+    messageListUpdating: state.chatReducer.messageListUpdating,
+    dataSkipNumber: state.chatReducer.dataSkipNumber
   };
 };
 

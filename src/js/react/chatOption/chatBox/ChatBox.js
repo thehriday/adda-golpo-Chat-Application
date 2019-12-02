@@ -1,65 +1,58 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import io from 'socket.io-client';
-import axios from 'axios';
 import './ChatBox.scss';
 
 import SingleChat from './singleChat/SingleChat';
 import CenterElement from '../../components/centerElement/CenterElement';
-import cookieParser from '../../../util/cookieParser';
+import Spinner from '../../components/spinner/Spinner';
 
 import {
   updateMessageList,
-  scrollUpdateMessageList
+  scrollUpdateMessageListAsync
 } from '../../store/action/chatAction';
+
+import { SCROLL_UPDATE_MESSAGE_LIST } from '../../store/action/actionType';
+
+const socket = io();
+let previousScrollHeight = 0;
 
 function ChatBox(props) {
   let ChatBoxRef = null;
-  let sendRequest = true;
-  let [dataSkipNumber, setDataSkipNumber] = useState(20);
-
-  console.log(dataSkipNumber);
 
   useEffect(() => {
     const peerId = [...props.userId, ...props.targetUserId].sort().join('');
-    const socket = io();
-    socket.on(peerId, newMessage => {
-      props.updateMessageList(newMessage);
-    });
+
+    if (!socket.hasListeners(peerId)) {
+      socket.on(peerId, newMessage => {
+        props.updateMessageList(newMessage);
+      });
+    }
   }, [props.targetUserId]);
 
   useEffect(() => {
-    ChatBoxRef.scroll(0, ChatBoxRef.scrollHeight);
+    if (props.fetchDataType !== SCROLL_UPDATE_MESSAGE_LIST) {
+      ChatBoxRef.scroll(0, ChatBoxRef.scrollHeight);
+    } else {
+      ChatBoxRef.scroll(0, ChatBoxRef.scrollHeight - previousScrollHeight);
+    }
+    previousScrollHeight = ChatBoxRef.scrollHeight;
   });
 
   const scrollHandler = e => {
     const { scrollTop } = e.target;
 
     if (scrollTop <= 0) {
-      if (sendRequest) {
-        // send request
-        axios
-          .post(
-            '/api/get-messages',
-            {
-              receiverId: props.targetUserId,
-              dataSkipNumber
-            },
-            {
-              headers: { authorization: 'Bearer ' + cookieParser().token }
-            }
-          )
-          .then(response => {
-            sendRequest = true;
-            setDataSkipNumber(dataSkipNumber + 10);
-            props.scrollUpdateMessageList(response.data.data);
-            console.log(response.data);
-          })
-          .catch(err => {
-            console.log(err);
-          });
+      const willSendRequest = props.totalMessages !== props.messageList.length;
+      // !props.messageListUpdating
+      console.log();
+
+      if (willSendRequest) {
+        props.scrollUpdateMessageListAsync({
+          receiverId: props.targetUserId,
+          dataSkipNumber: props.dataSkipNumber
+        });
       }
-      sendRequest = false;
     }
   };
 
@@ -69,7 +62,7 @@ function ChatBox(props) {
       className="ChatBox"
       onScroll={e => scrollHandler(e)}
     >
-      <h1>Loading</h1>
+      {props.messageListUpdating ? <Spinner /> : ''}
       {props.messageLoading ? (
         <CenterElement>
           <h1>Loading...</h1>
@@ -92,12 +85,19 @@ function ChatBox(props) {
   );
 }
 
-const mapDispatchToProps = dispatch => {
+const mapStateToProps = state => {
   return {
-    updateMessageList: newMessage => dispatch(updateMessageList(newMessage)),
-    scrollUpdateMessageList: newMessage =>
-      dispatch(scrollUpdateMessageList(newMessage))
+    messageListUpdating: state.chatReducer.messageListUpdating,
+    dataSkipNumber: state.chatReducer.dataSkipNumber
   };
 };
 
-export default connect(null, mapDispatchToProps)(ChatBox);
+const mapDispatchToProps = dispatch => {
+  return {
+    updateMessageList: newMessage => dispatch(updateMessageList(newMessage)),
+    scrollUpdateMessageListAsync: newMessage =>
+      dispatch(scrollUpdateMessageListAsync(newMessage))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChatBox);

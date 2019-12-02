@@ -5,7 +5,8 @@ import {
   UPDATE_CHAT_REDUCER,
   FETCH_MESSAGES,
   UPDATE_MESSAGE,
-  SCROLL_UPDATE_MESSAGE_LIST
+  SCROLL_UPDATE_MESSAGE_LIST,
+  SCROLL_HIT_TOP
 } from '../action/actionType';
 
 const chatAction = ({ userId, targetUser }) => {
@@ -56,11 +57,43 @@ export const updateMessageList = newMessage => {
     }
   };
 };
-export const scrollUpdateMessageList = newMessage => {
+const scrollUpdateMessageList = newMessage => {
   return {
     type: SCROLL_UPDATE_MESSAGE_LIST,
     payload: {
       newMessage
     }
+  };
+};
+
+const scrollHitTop = () => {
+  return {
+    type: SCROLL_HIT_TOP
+  };
+};
+
+export const scrollUpdateMessageListAsync = ({
+  receiverId,
+  dataSkipNumber
+}) => {
+  return dispatch => {
+    dispatch(scrollHitTop());
+    axios
+      .post(
+        '/api/get-messages',
+        {
+          receiverId,
+          dataSkipNumber
+        },
+        {
+          headers: { authorization: 'Bearer ' + cookieParser().token }
+        }
+      )
+      .then(response => {
+        dispatch(scrollUpdateMessageList(response.data.data));
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 };
