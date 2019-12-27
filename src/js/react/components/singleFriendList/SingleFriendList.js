@@ -23,7 +23,6 @@ class SingleFriendList extends Component {
   componentDidMount() {
     const socket = io();
     socket.on(`active-status ${this.props.targetUser._id}`, isActive => {
-      console.log(isActive);
       this.props.updateActiveFriendList({
         _id: this.props.targetUser._id,
         isActive

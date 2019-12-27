@@ -16,6 +16,6 @@ window.addEventListener('online', handleActiveStatus);
 window.addEventListener('offline', handleActiveStatus);
 window.addEventListener('load', handleActiveStatus);
 
-window.addEventListener('unload', () => {
+window.addEventListener('beforeunload', () => {
   socket.emit(USER_ACTIVE_STATUS, { token, isActive: false });
 });
