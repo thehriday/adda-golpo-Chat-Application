@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import io from 'socket.io-client';
 
 import './SingleFriendList.scss';
 
 import { chatActionAsync } from '../../store/action/chatAction';
-import { selectFriend } from '../../store/action/friendListAction';
+import {
+  selectFriend,
+  activeStatusAction
+} from '../../store/action/friendListAction';
 
 class SingleFriendList extends Component {
   clickHandler() {
@@ -14,6 +18,17 @@ class SingleFriendList extends Component {
     });
 
     this.props.selectFriend(this.props.targetUser._id);
+  }
+
+  componentDidMount() {
+    const socket = io();
+    socket.on(`active-status ${this.props.targetUser._id}`, isActive => {
+      console.log(isActive);
+      this.props.updateActiveFriendList({
+        _id: this.props.targetUser._id,
+        isActive
+      });
+    });
   }
 
   render() {
@@ -30,7 +45,11 @@ class SingleFriendList extends Component {
               src={this.props.targetUser.photoLink}
               alt={this.props.targetUser.name}
             />
-            <div className="active-status active"></div>
+            <div
+              className={`active-status ${
+                this.props.targetUser.isActive ? 'active' : 'inactive'
+              }`}
+            ></div>
           </div>
           <div className="info">
             <h5>{this.props.targetUser.name}</h5>
@@ -46,6 +65,7 @@ class SingleFriendList extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     updateChatState: data => dispatch(chatActionAsync(data)),
+    updateActiveFriendList: data => dispatch(activeStatusAction(data)),
     selectFriend: targetUserId => dispatch(selectFriend(targetUserId))
   };
 };

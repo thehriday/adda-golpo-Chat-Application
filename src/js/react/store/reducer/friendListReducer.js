@@ -1,6 +1,7 @@
 import {
   UPDATE_FRIEND_LIST_REDUCER,
-  SELECT_SINGLE_FRIEND
+  SELECT_SINGLE_FRIEND,
+  UPDATE_ACTIVE_FRIEND_LIST
 } from '../action/actionType';
 
 const initialState = {
@@ -31,6 +32,16 @@ const userReducer = (state = initialState, action) => {
             ...singleFriend,
             isSelected: false
           };
+        })
+      };
+    case UPDATE_ACTIVE_FRIEND_LIST:
+      return {
+        ...state,
+        friendList: state.friendList.map(singleFriend => {
+          if (singleFriend._id === action.payload._id) {
+            return { ...singleFriend, isActive: action.payload.isActive };
+          }
+          return singleFriend;
         })
       };
     default:

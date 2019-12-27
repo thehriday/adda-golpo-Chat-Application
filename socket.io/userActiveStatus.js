@@ -13,7 +13,9 @@ module.exports = io => {
         const { token, isActive } = info;
         const userId = jwt.decode(token, process.env.SECRET_CODE)._id;
         User.findByIdAndUpdate(userId, { isActive })
-          .then(result => console.log(result))
+          .then(() => {
+            io.emit(`active-status ${userId}`, isActive);
+          })
           .catch(err => console.log(err));
       } catch (err) {
         console.log(err);

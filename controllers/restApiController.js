@@ -3,7 +3,13 @@ const Message = require('../models/Message');
 
 exports.getFriendList = (req, res) => {
   User.findById(req.user._id, ['friendList'])
-    .populate('friendList', ['name', 'username', 'email', 'photoLink'])
+    .populate('friendList', [
+      'name',
+      'username',
+      'email',
+      'photoLink',
+      'isActive'
+    ])
     .then(result => {
       if (!result) throw new Error('User for found');
       res.status(200).json({

@@ -79,10 +79,6 @@ app.use((req, res, next) => {
 
 // routes
 
-app.get('/test/:text', (req, res) => {
-  console.log(req.params.text);
-});
-
 // home page
 app.get('/', homeController);
 

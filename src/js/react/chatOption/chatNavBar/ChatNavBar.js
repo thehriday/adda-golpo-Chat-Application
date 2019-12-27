@@ -13,7 +13,7 @@ export default function ChatNavBar(props) {
           <a href={`/user/${props.targetUser.username}`}>
             {props.targetUser.name}
           </a>
-          <p>Active</p>
+          <p>{props.targetUser.isActive ? 'Active' : 'Offline'}</p>
         </div>
       </nav>
       <hr style={{ margin: 0 }} />

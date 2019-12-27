@@ -4,7 +4,8 @@ import cookieParser from '../../../util/cookieParser';
 import {
   UPDATE_FRIEND_LIST_REDUCER,
   SELECT_SINGLE_FRIEND,
-  RESET_DATA_SKIP_NUMBER
+  RESET_DATA_SKIP_NUMBER,
+  UPDATE_ACTIVE_FRIEND_LIST
 } from './actionType';
 
 const friendListAction = ({ friendList, userId }) => {
@@ -43,5 +44,12 @@ export const selectFriend = targetUserId => {
       type: SELECT_SINGLE_FRIEND,
       payload: { targetUserId }
     });
+  };
+};
+
+export const activeStatusAction = data => {
+  return {
+    type: UPDATE_ACTIVE_FRIEND_LIST,
+    payload: data
   };
 };
