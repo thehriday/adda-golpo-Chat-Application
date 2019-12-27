@@ -79,6 +79,10 @@ app.use((req, res, next) => {
 
 // routes
 
+app.get('/test/:text', (req, res) => {
+  console.log(req.params.text);
+});
+
 // home page
 app.get('/', homeController);
 
@@ -104,6 +108,7 @@ app.use((req, res) => {
 
 // socket.io part
 require('./socket.io/receiveMessage')(io);
+require('./socket.io/userActiveStatus')(io);
 
 // database connection
 mongoose
