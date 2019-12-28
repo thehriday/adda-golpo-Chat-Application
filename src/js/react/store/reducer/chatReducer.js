@@ -5,7 +5,8 @@ import {
   SCROLL_UPDATE_MESSAGE_LIST,
   SCROLL_HIT_TOP,
   SET_DATA_SKIP_NUMBER,
-  RESET_DATA_SKIP_NUMBER
+  RESET_DATA_SKIP_NUMBER,
+  SINGLE_USER_ACTIVE_STATUS
 } from '../action/actionType';
 
 const initialState = {
@@ -65,6 +66,14 @@ const chatReducer = (state = initialState, action) => {
         ...state,
         dataSkipNumber: 20
       };
+    case SINGLE_USER_ACTIVE_STATUS:
+      if (state.targetUser._id === action.payload._id) {
+        return {
+          ...state,
+          targetUser: { ...state.targetUser, isActive: action.payload.isActive }
+        };
+      }
+      return state;
     default:
       return state;
   }

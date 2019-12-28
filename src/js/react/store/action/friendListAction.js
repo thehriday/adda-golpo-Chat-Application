@@ -5,7 +5,8 @@ import {
   UPDATE_FRIEND_LIST_REDUCER,
   SELECT_SINGLE_FRIEND,
   RESET_DATA_SKIP_NUMBER,
-  UPDATE_ACTIVE_FRIEND_LIST
+  UPDATE_ACTIVE_FRIEND_LIST,
+  SINGLE_USER_ACTIVE_STATUS
 } from './actionType';
 
 const friendListAction = ({ friendList, userId }) => {
@@ -47,9 +48,23 @@ export const selectFriend = targetUserId => {
   };
 };
 
-export const activeStatusAction = data => {
+const updateActiveFriendList = data => {
   return {
     type: UPDATE_ACTIVE_FRIEND_LIST,
     payload: data
+  };
+};
+
+const updateSingleFriendActiveStatus = data => {
+  return {
+    type: SINGLE_USER_ACTIVE_STATUS,
+    payload: data
+  };
+};
+
+export const activeStatusAction = data => {
+  return dispatch => {
+    dispatch(updateSingleFriendActiveStatus(data));
+    dispatch(updateActiveFriendList(data));
   };
 };
