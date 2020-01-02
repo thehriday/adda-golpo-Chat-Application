@@ -19,7 +19,7 @@ nav.main-mav-bar{z-index:10000}nav.main-mav-bar .logo{width:140px}nav.main-mav-b
 
 .ChatBox{height:calc(100% - 161px);overflow:scroll;margin-top:10px}
 
-.SingleChat{min-height:70px;display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;-webkit-box-align:center;align-items:center;padding:0 24px}.SingleChat img{width:40px;height:40px;border-radius:50%;border:1px solid gray}.SingleChat .message{margin-left:15px}.SingleChat .message a{color:#0e0e0f;font-size:14px;font-weight:600}.SingleChat .message p{font-size:14px}.SingleChat:hover{background:#fafafa}
+.SingleChat{min-height:70px;display:-webkit-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;flex-direction:row;-webkit-box-align:center;align-items:center;padding:0 24px}.SingleChat img{width:40px}.SingleChat .user-photo>img{height:40px;border-radius:50%;border:1px solid gray}.SingleChat .message{margin-left:15px}.SingleChat .message a{color:#0e0e0f;font-size:14px;font-weight:600}.SingleChat .message p{font-size:14px}.SingleChat:hover{background:#fafafa}
 
 .MessageSendOption{background:#ececec;height:70px;padding:0 50px;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center}.MessageSendOption input{box-shadow:7px 5px 8px #bbbbbb}
 

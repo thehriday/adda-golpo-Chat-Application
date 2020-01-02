@@ -54,6 +54,12 @@ class SingleFriendList extends Component {
             <h5>{this.props.targetUser.name}</h5>
             <h6>{this.props.targetUser.email}</h6>
           </div>
+          <span
+            style={{ background: 'red' }}
+            className="badge badge-dark ml-auto mr-4"
+          >
+            9
+          </span>
         </div>
         <hr style={{ margin: 0 }} />
       </React.Fragment>

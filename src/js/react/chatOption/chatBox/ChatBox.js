@@ -19,13 +19,20 @@ let previousScrollHeight = 0;
 
 function ChatBox(props) {
   let ChatBoxRef = null;
+  const [isTyping, setIsTyping] = useState(false);
 
   useEffect(() => {
     const peerId = [...props.userId, ...props.targetUserId].sort().join('');
 
     if (!socket.hasListeners(peerId)) {
-      socket.on(peerId, newMessage => {
-        props.updateMessageList(newMessage);
+      socket.on(peerId, ({ message, typingState }) => {
+        if (message) {
+          props.updateMessageList(message);
+        }
+        if (typingState) {
+          if (typingState.userId !== props.userId)
+            setIsTyping(typingState.isTyping);
+        }
       });
     }
   }, [props.targetUserId]);
@@ -77,9 +84,19 @@ function ChatBox(props) {
           <h4>No message found</h4>
         </CenterElement>
       ) : (
-        props.messageList.map(singleMessage => (
-          <SingleChat userId={props.userId} singleMessage={singleMessage} />
-        ))
+        <React.Fragment>
+          {props.messageList.map(singleMessage => (
+            <SingleChat userId={props.userId} singleMessage={singleMessage} />
+          ))}
+          {isTyping && (
+            <SingleChat
+              singleMessage={{
+                sender: props.targetUser,
+                messageBody: <img src="/photos/typing.gif" alt="Typing" />
+              }}
+            />
+          )}
+        </React.Fragment>
       )}
     </div>
   );
@@ -87,6 +104,7 @@ function ChatBox(props) {
 
 const mapStateToProps = state => {
   return {
+    targetUser: state.chatReducer.targetUser,
     messageListUpdating: state.chatReducer.messageListUpdating,
     dataSkipNumber: state.chatReducer.dataSkipNumber
   };

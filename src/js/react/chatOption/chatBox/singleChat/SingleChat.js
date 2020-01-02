@@ -7,10 +7,12 @@ export default function SingleChat(props) {
   return (
     <div className="SingleChat">
       <a href={`/user/${props.singleMessage.sender.username}`}>
-        <img
-          src={props.singleMessage.sender.photoLink}
-          alt={props.singleMessage.sender.name}
-        />
+        <div className="user-photo">
+          <img
+            src={props.singleMessage.sender.photoLink}
+            alt={props.singleMessage.sender.name}
+          />
+        </div>
       </a>
       <div className="message">
         <div style={{ display: 'flex' }}>
@@ -19,12 +21,14 @@ export default function SingleChat(props) {
               ? 'Me'
               : props.singleMessage.sender.name}
           </a>
-          <small
-            style={{ margin: 0, marginLeft: 7 }}
-            class="form-text text-muted"
-          >
-            {moment(new Date(props.singleMessage.createdAt)).format('lll')}
-          </small>
+          {props.singleMessage.createdAt && (
+            <small
+              style={{ margin: 0, marginLeft: 7 }}
+              class="form-text text-muted"
+            >
+              {moment(new Date(props.singleMessage.createdAt)).format('lll')}
+            </small>
+          )}
         </div>
         <p>{props.singleMessage.messageBody}</p>
       </div>

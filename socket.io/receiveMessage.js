@@ -5,26 +5,34 @@ const { SEND_MESSAGE } = require('./emitType');
 
 module.exports = io => {
   io.on('connection', socket => {
-    socket.on(SEND_MESSAGE, message => {
+    socket.on(SEND_MESSAGE, ({ senderReceiver, message, typingState }) => {
       try {
-        const { senderToken, receiver, messageBody } = message;
+        // extract sender receiver id, and create peer id
+        const { senderToken, receiver } = senderReceiver;
         const sender = jwt.decode(senderToken, process.env.SECRET_CODE)._id;
         const peerId = [...sender, ...receiver].sort().join('');
-        const newMessage = new Message({
-          peerId,
-          sender,
-          receiver,
-          messageBody
-        });
 
-        newMessage
-          .save()
-          .then(result => {
-            io.emit(peerId, result);
-          })
-          .catch(err => {
-            console.log(err);
+        if (message) {
+          const { messageBody } = message;
+          const newMessage = new Message({
+            peerId,
+            sender,
+            receiver,
+            messageBody
           });
+
+          newMessage
+            .save()
+            .then(result => {
+              io.emit(peerId, { message: result });
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        }
+        if (typingState) {
+          io.emit(peerId, { typingState });
+        }
       } catch (err) {
         console.log(err);
       }

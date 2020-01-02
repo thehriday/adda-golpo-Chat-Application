@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import io from 'socket.io-client';
 
 import './MessageSendOption.scss';
@@ -13,6 +13,10 @@ export default class MessageSendOption extends Component {
     this.state = {
       message: ''
     };
+    this.senderReceiver = {
+      senderToken: cookieParser().token,
+      receiver: this.props.targetUserId
+    };
   }
   changeHandler(e) {
     this.setState({
@@ -22,16 +26,37 @@ export default class MessageSendOption extends Component {
   submitHandler(key) {
     if (key === 'Enter' && this.state.message) {
       const message = {
-        senderToken: cookieParser().token,
-        receiver: this.props.targetUserId,
         messageBody: this.state.message
       };
 
-      this.socket.emit(SEND_MESSAGE, message);
+      this.socket.emit(SEND_MESSAGE, {
+        senderReceiver: this.senderReceiver,
+        message
+      });
 
       this.setState({
         message: ''
       });
+    }
+  }
+  componentDidUpdate() {
+    if (this.state.message.length === 0) {
+      this.socket.emit(SEND_MESSAGE, {
+        senderReceiver: this.senderReceiver,
+        typingState: { isTyping: false, userId: this.props.userId }
+      });
+    } else {
+      this.socket.emit(SEND_MESSAGE, {
+        senderReceiver: this.senderReceiver,
+        typingState: { isTyping: true, userId: this.props.userId }
+      });
+      clearTimeout(this.typingFinished);
+      this.typingFinished = setTimeout(() => {
+        this.socket.emit(SEND_MESSAGE, {
+          senderReceiver: this.senderReceiver,
+          typingState: { isTyping: false, userId: this.props.userId }
+        });
+      }, 1000 * 10);
     }
   }
   render() {

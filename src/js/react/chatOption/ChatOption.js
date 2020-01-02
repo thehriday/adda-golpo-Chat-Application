@@ -21,7 +21,10 @@ function ChatOption(props) {
         totalMessages={props.totalMessages}
         fetchDataType={props.fetchDataType}
       />
-      <MessageSendOption targetUserId={props.targetUser._id} />
+      <MessageSendOption
+        userId={props.userId}
+        targetUserId={props.targetUser._id}
+      />
     </React.Fragment>
   );
 }
