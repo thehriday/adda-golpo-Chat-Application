@@ -15,6 +15,7 @@ const passport = require('passport');
 // only require part
 require('dotenv').config();
 require('./passport/passport');
+require('./util/activeStatus/activeStatus');
 
 // import routes
 const restApiRouter = require('./routes/restApiRouter');
