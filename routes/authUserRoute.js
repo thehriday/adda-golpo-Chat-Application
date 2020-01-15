@@ -10,31 +10,33 @@ const {
   getUserProfile
 } = require('../controllers/authUserController');
 
+const isAuthenticated = require('../middleware/isAuthenticated');
+
 const router = express.Router();
 
 // settings route
-router.get('/settings', (req, res) => {
+router.get('/settings', isAuthenticated, (req, res) => {
   res.send('settings');
 });
 
 // user profile route
-router.get('/user/:username', getUserProfile);
+router.get('/user/:username', isAuthenticated, getUserProfile);
 
-router.get('/search', getSearchUser);
+router.get('/search', isAuthenticated, getSearchUser);
 
 // send friend request
-router.post('/send-request', postSendRequest);
+router.post('/send-request', isAuthenticated, postSendRequest);
 
 // calcel friend request
-router.post('/cancel-request', postCancelRequest);
+router.post('/cancel-request', isAuthenticated, postCancelRequest);
 
 // friend request route
-router.get('/friend_request', getFriendrequest);
+router.get('/friend_request', isAuthenticated, getFriendrequest);
 
 // accept friend request route
-router.post('/accept-friend-request', postAcceptRequest);
+router.post('/accept-friend-request', isAuthenticated, postAcceptRequest);
 
 // delete friend request route
-router.post('/delete-friend-request', postDeleteRequest);
+router.post('/delete-friend-request', isAuthenticated, postDeleteRequest);
 
 module.exports = router;
