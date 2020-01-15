@@ -129,3 +129,10 @@ exports.postDeleteRequest = (req, res, next) => {
       next(err);
     });
 };
+
+exports.getUserProfile = (req, res, next) => {
+  res.render('userProfile/userProfile', {
+    title: req.user.name,
+    user: req.user
+  });
+};

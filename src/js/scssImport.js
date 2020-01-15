@@ -6,3 +6,5 @@ require('../scss/oauth.scss');
 require('../scss/homePage.scss');
 require('../scss/messagePage.scss');
 require('../scss/searchUser.scss');
+require('../scss/userProfile.scss');
+require('../scss/footer.scss');

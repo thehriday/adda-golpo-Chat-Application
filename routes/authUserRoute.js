@@ -6,7 +6,8 @@ const {
   postCancelRequest,
   getFriendrequest,
   postAcceptRequest,
-  postDeleteRequest
+  postDeleteRequest,
+  getUserProfile
 } = require('../controllers/authUserController');
 
 const router = express.Router();
@@ -17,9 +18,7 @@ router.get('/settings', (req, res) => {
 });
 
 // user profile route
-router.get('/user/:username', (req, res) => {
-  res.json(req.params);
-});
+router.get('/user/:username', getUserProfile);
 
 router.get('/search', getSearchUser);
 

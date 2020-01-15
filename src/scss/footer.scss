@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
+footer {
+  background: #1258a5;
+  background-image: url(/photos/star-pattern.svg);
+  color: white;
+  padding-top: 45px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+footer img {
+  width: 100%;
+}
+p.footer-image-text {
+  font-size: 18px;
+  margin-top: 16px;
+  margin-bottom: 45px;
+  font-weight: 500;
+  letter-spacing: 2px;
+}
+
+footer h5 {
+  font-weight: 600;
+}
+
+footer p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+footer p a {
+  color: rgba(253, 251, 251, 0.7490196078431373);
+  display: block;
+  padding: 10px 0;
+}
+footer p a:hover {
+  text-decoration: underline;
+  color: white;
+}
+footer hr {
+  width: 100%;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+footer .keep-connected-links ul {
+  margin: 0;
+  padding: 0;
+  padding-top: 15px;
+  list-style: none;
+}
+footer .keep-connected-links ul li {
+  float: left;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  text-align: center;
+}
+footer .keep-connected-links ul li a {
+  width: 100%;
+  height: 100%;
+  background: white;
+  color: #007bff;
+  border-radius: 50%;
+  display: block;
+  padding-top: 8px;
+  font-size: 30px;
+  transition: 0.8s;
+}
+footer .keep-connected-links ul li:nth-child(1) a:hover {
+  transform: rotate(360deg);
+  background: #4267b2;
+  color: white;
+  transition: 0.3s;
+}
+footer .keep-connected-links ul li:nth-child(2) a:hover {
+  transform: rotate(360deg);
+  background: linear-gradient(#5f67e3, #fc3437);
+  color: white;
+  transition: 0.3s;
+}
+footer .keep-connected-links ul li:nth-child(3) a:hover {
+  transform: rotate(360deg);
+  background: rgb(40, 149, 233);
+  color: white;
+  transition: 0.3s;
+}
+footer .keep-connected-links ul li:nth-child(4) a:hover {
+  transform: rotate(360deg);
+  background: #e62f27;
+  color: white;
+  transition: 0.3s;
+}
+
+footer .get-app {
+  width: 66%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 25px;
+}
+
+footer .copyright {
+  background: rgba(253, 253, 253, 0.28);
+  margin-top: 37px;
+}
+footer .copyright p {
+  text-align: center;
+  color: white;
+  font-size: 14px;
+  padding: 10px 0;
+}
+
+@media screen and (max-width: 767px) {
+  footer .keep-connected {
+    margin-top: 25px;
+  }
+  footer .keep-connected .keep-connected-header {
+    width: 100%;
+    text-align: left !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  footer .keep-connected-links ul li {
+    width: 40px;
+    height: 40px;
+  }
+  footer .keep-connected-links ul li a {
+    padding-top: 6px;
+    font-size: 20px;
+  }
+}
