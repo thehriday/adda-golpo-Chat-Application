@@ -1,4 +1,106 @@
-<div class="container userProfile">
-  <h1><%= user.friendList.length %></h1>
-  <img src="<%= user.photoLink %>" alt="<%= user.name %>" />
+<div class="wrapper userProfile">
+  <div class="container mt-4">
+    <div class="authForm">
+      <div class="formContainer">
+        <%if(isSameUser){%>
+        <!-- for the same user -->
+        <form
+          action="/upload-profile-picture"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          <label for="uploadProfilePicture">
+            <div class="searchUserProfilePicture sameUser">
+              <img
+                src="<%= searchUser.photoLink %>"
+                alt="<%= searchUser.name %>"
+              />
+              <div style="display: none;" class="uploadPhotoLabel">
+                <i class="fa fa-camera" aria-hidden="true"></i>
+                <span>Upload Photo</span>
+              </div>
+            </div></label
+          >
+          <input
+            style="display: none;"
+            type="file"
+            name="updatedProfilePicture"
+            id="uploadProfilePicture"
+            accept="image/gif, image/jpeg, image/png"
+          />
+          <div
+            style="display: none;"
+            class="upload-profile-picture-buttons input-group"
+          >
+            <button type="button" class="btn btn-secondary cancelButton">
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-primary saveButton">
+              SAVE
+            </button>
+          </div>
+        </form>
+        <%} else{%>
+        <!-- for the other user -->
+        <div class="searchUserProfilePicture">
+          <img src="<%= searchUser.photoLink %>" alt="<%= searchUser.name %>" />
+        </div>
+        <%}%>
+        <h1 title="Name"><%= searchUser.name %></h1>
+        <h3 title="Username"><%= searchUser.username %></h3>
+        <% if(isSameUser) {%>
+        <button class="btn btn-warning">
+          <i class="fa fa-pencil" aria-hidden="true"></i> Edit Profile
+        </button>
+        <% } %>
+        <hr />
+        <div class="userInfo">
+          <div class="user-info-content search-user-email">
+            <div class="input-group">
+              <i class="fa fa-envelope-o" aria-hidden="true"></i>
+              <h6>Email:</h6>
+            </div>
+            <p><%= searchUser.email %></p>
+          </div>
+          <div class="user-info-content search-user-mobile">
+            <div class="input-group">
+              <i class="fa fa-mobile" aria-hidden="true"></i>
+              <h6>Mobile:</h6>
+            </div>
+            <p>01770218996</p>
+          </div>
+          <div class="user-info-content search-user-work">
+            <div class="input-group">
+              <i class="fa fa-briefcase" aria-hidden="true"></i>
+              <h6>Work:</h6>
+            </div>
+
+            <p>Full stack web developer</p>
+          </div>
+          <div class="user-info-content search-user-city">
+            <div class="input-group">
+              <i class="fa fa-map-marker" aria-hidden="true"></i>
+              <h6>City:</h6>
+            </div>
+            <p>Dhaka</p>
+          </div>
+          <div class="user-info-content search-user-about">
+            <div class="input-group">
+              <i class="fa fa-comments-o" aria-hidden="true"></i>
+              <h6>About:</h6>
+            </div>
+            <p>
+              I am a full stack passionate web designer and. I can design any
+              kind of web whatever you want . Let's discuss and do something
+              awesome for you!
+            </p>
+          </div>
+        </div>
+        <div class="edit-profile-buttons input-group">
+          <button class="btn btn-secondary cancelButton">Cancel</button>
+          <button class="btn btn-primary saveButton">SAVE</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

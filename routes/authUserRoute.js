@@ -7,7 +7,8 @@ const {
   getFriendrequest,
   postAcceptRequest,
   postDeleteRequest,
-  getUserProfile
+  getUserProfile,
+  postUploadProfilePicture
 } = require('../controllers/authUserController');
 
 const isAuthenticated = require('../middleware/isAuthenticated');
@@ -27,7 +28,7 @@ router.get('/search', isAuthenticated, getSearchUser);
 // send friend request
 router.post('/send-request', isAuthenticated, postSendRequest);
 
-// calcel friend request
+// cancel friend request
 router.post('/cancel-request', isAuthenticated, postCancelRequest);
 
 // friend request route
@@ -38,5 +39,12 @@ router.post('/accept-friend-request', isAuthenticated, postAcceptRequest);
 
 // delete friend request route
 router.post('/delete-friend-request', isAuthenticated, postDeleteRequest);
+
+// user's profile picture upload route
+router.post(
+  '/upload-profile-picture',
+  isAuthenticated,
+  postUploadProfilePicture
+);
 
 module.exports = router;

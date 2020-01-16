@@ -1,7 +1,8 @@
-const mongoose = require('mongoose');
 const validator = require('validator');
 
 const User = require('../models/User');
+
+const cloudinary = require('../util/cloudinary');
 
 exports.getSearchUser = (req, res, next) => {
   const { user } = req.query;
@@ -130,9 +131,54 @@ exports.postDeleteRequest = (req, res, next) => {
     });
 };
 
-exports.getUserProfile = (req, res, next) => {
+exports.getUserProfile = async (req, res, next) => {
+  const { username } = req.params;
+
+  const user = await User.findOne({ username });
+  if (!user) {
+    return res.render('error/404');
+  }
+
   res.render('userProfile/userProfile', {
     title: req.user.name,
-    user: req.user
+    searchUser: user,
+    isSameUser: user._id.toString() === req.user._id.toString()
+  });
+};
+
+exports.postUploadProfilePicture = (req, res, next) => {
+  const photoType = ['image/gif', 'image/jpeg', 'image/png'];
+  const heightPhotoSize = 1024 * 1024 * 5;
+
+  const photo = req.files.updatedProfilePicture;
+
+  if (
+    !photo ||
+    !photoType.includes(photo.mimetype) ||
+    photo.size > heightPhotoSize
+  ) {
+    return res.redirect('back');
+  }
+
+  // upload image to cloudinary
+  cloudinary.uploader.upload(photo.tempFilePath, function(error, result) {
+    if (error) {
+      return next(error);
+    }
+    User.findByIdAndUpdate(req.user._id, { photoLink: result.secure_url })
+      .then(updatedResult => {
+        const { photoLink } = req.user;
+        const publicId = photoLink
+          .split('/')
+          [photoLink.split('/').length - 1].split('.')[0];
+
+        // delete old image
+        cloudinary.uploader.destroy(publicId);
+        // response back
+        res.redirect('back');
+      })
+      .catch(err => {
+        next(err);
+      });
   });
 };

@@ -14,3 +14,8 @@ if (location.pathname === '/') {
   // import react part
   require('./react');
 }
+
+// user profile js import
+if (location.pathname.split('/')[1] === 'user') {
+  require('./userProfile');
+}

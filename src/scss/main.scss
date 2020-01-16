@@ -9,7 +9,6 @@ body {
 
   .wrapper {
     min-height: 100vh;
-    padding-top: 10px;
     padding-bottom: 10px;
     padding-top: 56px;
     background: $linear-background;
@@ -22,8 +21,7 @@ body {
   align-items: center;
 
   .formContainer {
-    // min-width : 450px;
-    min-width: 550px;
+    width: 550px;
     min-height: 368px;
     background: white;
     padding: 60px 70px;
