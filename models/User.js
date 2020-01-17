@@ -38,7 +38,25 @@ const userSchema = new Schema(
     },
     friendList: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     friendRequest: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-    sendRequest: [{ type: Schema.Types.ObjectId, ref: 'User' }]
+    sendRequest: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    userInfo: {
+      mobile: {
+        type: String,
+        default: 'Not Set Yet'
+      },
+      work: {
+        type: String,
+        default: 'Not Set Yet'
+      },
+      city: {
+        type: String,
+        default: 'Not Set Yet'
+      },
+      about: {
+        type: String,
+        default: 'Not Set Yet'
+      }
+    }
   },
   {
     timestamps: true

@@ -182,3 +182,24 @@ exports.postUploadProfilePicture = (req, res, next) => {
       });
   });
 };
+
+exports.postEditProfile = async (req, res, next) => {
+  const { email, mobile, work, city, about } = req.body;
+  let isUsedEmail = false;
+  if (req.user.email !== email) {
+    isUsedEmail = await User.findOne({ email });
+  }
+
+  if (isUsedEmail) {
+    req.flash('error', ['Email has already used']);
+    return res.redirect('back');
+  }
+
+  User.findByIdAndUpdate(req.user._id, {
+    userInfo: { mobile, work, city, about }
+  })
+    .then(() => {
+      return res.redirect('back');
+    })
+    .catch(err => next(err));
+};

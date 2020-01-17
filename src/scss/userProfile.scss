@@ -55,11 +55,15 @@
   .edit-profile-buttons,
   .upload-profile-picture-buttons {
     justify-content: center;
-    .cancelButton {
+    .cancelButton,
+    .cancelEditProfileButton {
       margin-right: 10px;
     }
   }
   .upload-profile-picture-buttons {
     margin-bottom: 20px;
+  }
+  .edit-profile {
+    margin-bottom: 25px;
   }
 }

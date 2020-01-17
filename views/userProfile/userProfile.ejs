@@ -1,4 +1,5 @@
 <div class="wrapper userProfile">
+  <%- include('../error/flashMessages') %>
   <div class="container mt-4">
     <div class="authForm">
       <div class="formContainer">
@@ -49,56 +50,93 @@
         <h1 title="Name"><%= searchUser.name %></h1>
         <h3 title="Username"><%= searchUser.username %></h3>
         <% if(isSameUser) {%>
-        <button class="btn btn-warning">
+        <button class="edit-profile-button btn btn-warning">
           <i class="fa fa-pencil" aria-hidden="true"></i> Edit Profile
         </button>
         <% } %>
         <hr />
+        <form action="/edit-profile" method="post">
         <div class="userInfo">
           <div class="user-info-content search-user-email">
             <div class="input-group">
               <i class="fa fa-envelope-o" aria-hidden="true"></i>
               <h6>Email:</h6>
             </div>
-            <p><%= searchUser.email %></p>
+            <p class="normal-profile"><%= searchUser.email %></p>
+            <input
+              required
+              style="display: none;"
+              class="edit-profile form-control"
+              type="text"
+              name="email"
+              value="<%= searchUser.email %>"
+            />
           </div>
           <div class="user-info-content search-user-mobile">
             <div class="input-group">
               <i class="fa fa-mobile" aria-hidden="true"></i>
               <h6>Mobile:</h6>
             </div>
-            <p>01770218996</p>
+            <p class="normal-profile"><%= searchUser.userInfo.mobile %></p>
+            <input
+              required
+              style="display: none;"
+              class="edit-profile form-control"
+              type="text"
+              name="mobile"
+              value="<%= searchUser.userInfo.mobile %>"
+            />
           </div>
           <div class="user-info-content search-user-work">
             <div class="input-group">
               <i class="fa fa-briefcase" aria-hidden="true"></i>
               <h6>Work:</h6>
             </div>
-
-            <p>Full stack web developer</p>
+            <p class="normal-profile"><%= searchUser.userInfo.work %></p>
+            <input
+              required
+              style="display: none;"
+              class="edit-profile form-control"
+              type="text"
+              name="work"
+              value="<%= searchUser.userInfo.work %>"
+            />
           </div>
           <div class="user-info-content search-user-city">
             <div class="input-group">
               <i class="fa fa-map-marker" aria-hidden="true"></i>
               <h6>City:</h6>
             </div>
-            <p>Dhaka</p>
+            <p class="normal-profile"><%= searchUser.userInfo.city %></p>
+            <input
+              required
+              style="display: none;"
+              class="edit-profile form-control"
+              type="text"
+              name="city"
+              value="<%= searchUser.userInfo.city %>"
+            />
           </div>
           <div class="user-info-content search-user-about">
             <div class="input-group">
               <i class="fa fa-comments-o" aria-hidden="true"></i>
               <h6>About:</h6>
             </div>
-            <p>
-              I am a full stack passionate web designer and. I can design any
-              kind of web whatever you want . Let's discuss and do something
-              awesome for you!
+            <p class="normal-profile">
+              <%= searchUser.userInfo.about %>
             </p>
+            <textarea required style="display: none;" class="edit-profile form-control" name="about" cols="40"><%= searchUser.userInfo.about %></textarea>
           </div>
         </div>
-        <div class="edit-profile-buttons input-group">
-          <button class="btn btn-secondary cancelButton">Cancel</button>
-          <button class="btn btn-primary saveButton">SAVE</button>
+        <div
+          style="display: none;"
+          class="edit-profile edit-profile-buttons input-group"
+        >
+          <button type="button" class="btn btn-secondary cancelEditProfileButton">
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-primary">SAVE</button>
+        </form>
         </div>
       </div>
     </div>

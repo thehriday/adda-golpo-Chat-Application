@@ -8,7 +8,8 @@ const {
   postAcceptRequest,
   postDeleteRequest,
   getUserProfile,
-  postUploadProfilePicture
+  postUploadProfilePicture,
+  postEditProfile
 } = require('../controllers/authUserController');
 
 const isAuthenticated = require('../middleware/isAuthenticated');
@@ -46,5 +47,8 @@ router.post(
   isAuthenticated,
   postUploadProfilePicture
 );
+
+// user's edit profile route
+router.post('/edit-profile', isAuthenticated, postEditProfile);
 
 module.exports = router;

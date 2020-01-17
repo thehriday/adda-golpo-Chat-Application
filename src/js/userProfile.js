@@ -22,6 +22,22 @@ const uploadPhotoLabel = document.querySelector(
   '.userProfile .searchUserProfilePicture.sameUser .uploadPhotoLabel'
 );
 
+const editProfileElement = document.querySelectorAll(
+  '.userProfile .edit-profile'
+);
+
+const normalProfileElement = document.querySelectorAll(
+  '.userProfile .normal-profile'
+);
+
+const editProfileButton = document.querySelector(
+  '.userProfile .edit-profile-button'
+);
+
+const cancelEditProfileButton = document.querySelector(
+  '.userProfile .cancelEditProfileButton'
+);
+
 const fileReader = new FileReader();
 const photoType = ['image/gif', 'image/jpeg', 'image/png'];
 const heightPhotoSize = 1024 * 1024 * 5;
@@ -60,4 +76,16 @@ profilePicture &&
 profilePicture &&
   profilePicture.addEventListener('mouseleave', e => {
     uploadPhotoLabel.style.display = 'none';
+  });
+
+editProfileButton &&
+  editProfileButton.addEventListener('click', e => {
+    normalProfileElement.forEach(e => (e.style.display = 'none'));
+    editProfileElement.forEach(e => (e.style.display = ''));
+  });
+
+cancelEditProfileButton &&
+  cancelEditProfileButton.addEventListener('click', e => {
+    normalProfileElement.forEach(e => (e.style.display = ''));
+    editProfileElement.forEach(e => (e.style.display = 'none'));
   });
