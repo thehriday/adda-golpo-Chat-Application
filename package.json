@@ -75,6 +75,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.6.11",
     "nodemailer": "^6.3.0",
+    "nodemailer-sendgrid-transport": "^0.2.0",
     "passport": "^0.4.0",
     "passport-facebook": "^3.0.0",
     "passport-google-oauth20": "^2.0.0",
