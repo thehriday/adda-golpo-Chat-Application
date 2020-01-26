@@ -75,6 +75,8 @@ exports.getActivationAccount = (req, res, next) => {
     .then(user => {
       if (user) {
         const token = jwt.sign({ _id: user._id }, process.env.SECRET_CODE);
+        console.log(token);
+        req.session.passport = {};
         req.session.passport.user = { id: user.id, token };
         res.redirect('/');
       }
