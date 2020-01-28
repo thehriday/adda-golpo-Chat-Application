@@ -1,6 +1,9 @@
 const cookieParser = () => {
   const cookieObject = {};
   const cookieString = document.cookie;
+  if (!cookieString) {
+    return cookieObject;
+  }
   cookieString
     .split(';')
     .forEach(
