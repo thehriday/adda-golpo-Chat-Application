@@ -11,10 +11,11 @@ module.exports = io => {
     socket.on(USER_ACTIVE_STATUS, info => {
       try {
         const { token, isActive } = info;
-        const userId = jwt.decode(token, process.env.SECRET_CODE)._id;
-        User.findByIdAndUpdate(userId, { isActive })
+        const user = jwt.decode(token, process.env.SECRET_CODE);
+        if (!user) return;
+        User.findByIdAndUpdate(user._id, { isActive })
           .then(() => {
-            io.emit(`active-status ${userId}`, isActive);
+            io.emit(`active-status ${user._id}`, isActive);
           })
           .catch(err => console.log(err));
       } catch (err) {

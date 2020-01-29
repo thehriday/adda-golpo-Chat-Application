@@ -1,0 +1,70 @@
+@media only screen and (max-width: 600px) {
+  .authForm .formContainer {
+    padding: 60px 20px;
+  }
+
+  .mobile-nav {
+    .logo {
+      width: 100px !important;
+    }
+  }
+}
+
+@media only screen and (max-width: 750px) {
+  .unAuthHomePage .content {
+    h1 {
+      font-size: 30px;
+    }
+    h2 {
+      font-size: 20px;
+    }
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  nav.main-mav-bar .authNavbar .search-bar {
+    padding: 0 !important;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .mobile-nav {
+    display: flex;
+  }
+  .desktop-nav {
+    display: none;
+  }
+
+  .profile-element {
+    ul {
+      flex-direction: row !important;
+      li {
+        padding-left: 10px;
+
+        i {
+          font-size: 25px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .desktop-nav {
+    display: flex;
+  }
+  .mobile-nav {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .mobile-nav {
+    .navbar-nav .dropdown-menu {
+      position: absolute;
+    }
+    .dropdown-menu {
+      left: -100%;
+    }
+  }
+}

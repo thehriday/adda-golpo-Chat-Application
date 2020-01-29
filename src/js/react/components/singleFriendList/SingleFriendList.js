@@ -18,6 +18,7 @@ class SingleFriendList extends Component {
     });
 
     this.props.selectFriend(this.props.targetUser._id);
+    scroll(0, innerHeight);
   }
 
   componentDidMount() {
