@@ -110,7 +110,7 @@ require('./socket.io/userActiveStatus')(io);
 // database connection
 mongoose
   .connect(
-    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@blog-site-lxobl.mongodb.net/project_name`,
+    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0-cmbbz.mongodb.net/adda-golpo`,
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => {
