@@ -140,7 +140,7 @@ exports.getUserProfile = async (req, res, next) => {
   }
 
   res.render('userProfile/userProfile', {
-    title: req.user.name,
+    title: user.name,
     searchUser: user,
     isSameUser: user._id.toString() === req.user._id.toString()
   });
