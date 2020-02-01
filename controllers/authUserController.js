@@ -4,7 +4,7 @@ const User = require('../models/User')
 
 const cloudinary = require('../util/cloudinary')
 
-const { getUserRegx } = require('./searchTechnology/userSearch')
+const { getUserRegExTxt } = require('./searchTechnology/userSearch')
 
 exports.getSearchUser = (req, res, next) => {
   const { user } = req.query
@@ -15,9 +15,10 @@ exports.getSearchUser = (req, res, next) => {
   if (validator.isEmail(user)) {
     searchResult = User.findOne({ email: RegExp(user, 'i') }, ['-password'])
   } else {
-    searchResult = User.findOne({ username: RegExp(getUserRegx(user), 'i') }, [
-      -'password'
-    ])
+    searchResult = User.findOne(
+      { username: RegExp(getUserRegExTxt(user), 'i') },
+      [-'password']
+    )
   }
   searchResult
     .then(searchUser => {
